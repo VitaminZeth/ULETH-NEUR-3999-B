@@ -1,0 +1,68 @@
+PMID- 9637035
+OWN - NLM
+STAT- MEDLINE
+DCOM- 19980731
+LR  - 20190515
+IS  - 0001-4966 (Print)
+IS  - 0001-4966 (Linking)
+VI  - 103
+IP  - 6
+DP  - 1998 Jun
+TI  - Dichotic pitches as illusions of binaural unmasking. I. Huggins' pitch and the 
+      "binaural edge pitch".
+PG  - 3509-26
+AB  - The two most salient dichotic pitches, the Huggins pitch (HP) and the binaural 
+      edge pitch (BEP), are produced by applying interaural phase transitions of 360 
+      and 180 degrees, respectively, to a broadband noise. This paper examines accounts 
+      of these pitches, concentrating on a "central activity pattern" (CAP) model and a 
+      "modified equalization-cancellation" (mE-C) model. The CAP model proposes that a 
+      dichotic pitch is heard at frequency f when an individual across-frequency scan 
+      in an interaural cross-correlation matrix contains a sharp peak at f. The mE-C 
+      model proposes that a dichotic pitch is heard when a plot of interaural 
+      decorrelation against frequency contains a peak at f. The predictions of the 
+      models diverge for the BEP at very narrow transition bandwidths: the mE-C model 
+      predicts that salience is sustained, while the CAP model predicts that salience 
+      declines and that the dominant percept is of the in-phase segment of the noise. 
+      Experiment 1 showed that the salience of the BEP was sustained at the narrowest 
+      bandwidths that could be generated (0.5% of the transition frequency). Experiment 
+      2 confirmed that the pitch of a BEP produced by a 0.5% transition bandwidth was 
+      close to the frequency of the transition band. Experiment 3 showed that pairs of 
+      simultaneous narrow 180-degree transitions, whose frequencies corresponded to 
+      vowel formants, were perceived as the intended vowels. Moreover, the same vowels 
+      were perceived whether the in-phase portion of the noise lay between the two 
+      transition frequencies or on either side of them. In contrast, different patterns 
+      of identification responses were made to diotic band-pass and band-stop noises 
+      whose cutoff frequencies corresponded to the same formants. Thus, the 
+      vowel-identification responses made to the dichotic stimuli were not based on 
+      hearing the in-phase portions of the noise as formants. These results are not 
+      predicted by the CAP model but are consistent with the mE-C model. It is argued 
+      that the mE-C model provides a more coherent and parsimonious account of many 
+      aspects of the HP and the BEP than do alternative models.
+FAU - Culling, J F
+AU  - Culling JF
+AD  - MRC Institute of Hearing Research, University of Nottingham, United Kingdom.
+FAU - Summerfield, A Q
+AU  - Summerfield AQ
+FAU - Marshall, D H
+AU  - Marshall DH
+LA  - eng
+PT  - Journal Article
+PL  - United States
+TA  - J Acoust Soc Am
+JT  - The Journal of the Acoustical Society of America
+JID - 7503051
+SB  - IM
+MH  - *Dichotic Listening Tests
+MH  - Humans
+MH  - Models, Theoretical
+MH  - Noise
+MH  - Pitch Perception/*physiology
+EDAT- 1998/06/24 00:00
+MHDA- 1998/06/24 00:01
+CRDT- 1998/06/24 00:00
+PHST- 1998/06/24 00:00 [pubmed]
+PHST- 1998/06/24 00:01 [medline]
+PHST- 1998/06/24 00:00 [entrez]
+AID - 10.1121/1.423059 [doi]
+PST - ppublish
+SO  - J Acoust Soc Am. 1998 Jun;103(6):3509-26. doi: 10.1121/1.423059.

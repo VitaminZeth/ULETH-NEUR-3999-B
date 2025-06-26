@@ -1,0 +1,17 @@
+
+%0 Journal Article
+%A Lee, Heonzoo
+%A Park, Rayoung
+%A Kim, Sejin
+%A Cho, Hyong-Ho
+%A Won, Yonggwan
+%T A novel approach for estimating initial sound level for speech reception threshold test
+%D 2024
+%J Technology and Health Care
+%P 197-206
+%V 32
+%N 1_suppl
+%R 10.3233/THC-248017
+%U https://journals.sagepub.com/doi/abs/10.3233/THC-248017
+%X BACKGROUND:  The speech reception threshold (SRT), synonymous with the speech recognition threshold, denotes the minimum hearing level required for an individual to discern 50% of presented speech material. This threshold is measured independently in each ear with a repetitive up-down adjustment of stimulus level starting from the initial SRT value derived from pure tone thresholds (PTTs), measured via pure-tone audiometry (PTA). However, repetitive adjustments in the test contributes to increased fatigue for both patients and audiologists, compromising the reliability of the hearing tests.OBJECTIVE:  Determining the first (initial) sound level closer to the finally determined SRT value, is important to reduce the number of repetitions. The existing method to determine the initial sound level is to average the PTTs called pure tone average (PTAv).METHODS:  We propose a novel method using a machine learning approach to estimate a more optimal initial sound level for the SRT test. Specifically, a convolutional neural network with 1-dimensional filters (1D CNN) was implemented to predict a superior initial level than the conventional methods.RESULTS:  Our approach produced a reduction of 37.92% in the difference between the initial stimulus level and the final SRT value.CONCLUSIONS:  This outcome substantiates that our approach can reduce the repetitions for finding the final SRT, and, as the result, the hearing test time can be reduced.
+%K Hearing test, speech audiometry, pure tone threshold, speech reception threshold, convolutional neural network
