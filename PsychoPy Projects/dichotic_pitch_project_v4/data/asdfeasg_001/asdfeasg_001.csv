@@ -1,3 +1,1 @@
 block,trial,phase,type,freq,heard,conf,rt,ear,pitch,correct,flipped,ear_correct,L250,L500,L1000,L2000,L4000,L8000,R250,R500,R1000,R2000,R4000,R8000,hear_issues,neuro,implants,meds,preg,eeg_imp,vol_ok,break_ok,compensated
-0,0,Screen,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,25,15,15,25,25,15,35,15,15,15,25,5,n,n,n,n,n,y,yes,NA
-1,1,Compensated,Control,500,n,5,1.093,NA,NA,yes,none,NA,,,,,,,,,,,,,n,n,n,n,n,y,,True
