@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2024.2.4),
-    on June 24, 2025, at 12:12
+    on June 26, 2025, at 14:33
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -260,6 +260,12 @@ def setupDevices(expInfo, thisExp, win):
         deviceManager.addDevice(
             deviceClass='keyboard', deviceName='defaultKeyboard', backend='iohub'
         )
+    # create speaker 'VB-AUDIO_POTATO'
+    deviceManager.addDevice(
+        deviceName='VB-AUDIO_POTATO',
+        deviceClass='psychopy.hardware.speaker.SpeakerDevice',
+        index=57.0
+    )
     # return True if completed successfully
     return True
 
@@ -362,6 +368,22 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # Start Code - component code to be run after the window creation
     
     # --- Initialize components for Routine "trial" ---
+    dichotic_pitch = sound.Sound(
+        'A', 
+        secs=-1, 
+        stereo=True, 
+        hamming=True, 
+        speaker='VB-AUDIO_POTATO',    name='dichotic_pitch'
+    )
+    dichotic_pitch.setVolume(1.0)
+    prog = visual.Progress(
+        win, name='prog',
+        progress=0,
+        pos=(0, 0), size=(0.5, 0.5), anchor='center-left', units='height',
+        barColor='white', backColor=None, borderColor='white', colorSpace='rgb',
+        lineWidth=4.0, opacity=1.0, ori=0.0,
+        depth=-1
+    )
     
     # create some handy timers
     
@@ -395,11 +417,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # create an object to store info about Routine trial
     trial = data.Routine(
         name='trial',
-        components=[],
+        components=[dichotic_pitch, prog],
     )
     trial.status = NOT_STARTED
     continueRoutine = True
     # update component parameters for each repeat
+    dichotic_pitch.setSound('D:/Fork/ULETH-NEUR-3999-B/PsychoPy Projects/dichotic_huggins_edge_renderer/output/dichotic_pitch/dichotic_pitch_20250626_141937.wav', secs=10.0, hamming=True)
+    dichotic_pitch.setVolume(1.0, log=False)
+    dichotic_pitch.seek(0)
     # store start times for trial
     trial.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
     trial.tStart = globalClock.getTime(format='float')
@@ -422,13 +447,75 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Run Routine "trial" ---
     trial.forceEnded = routineForceEnded = not continueRoutine
-    while continueRoutine:
+    while continueRoutine and routineTimer.getTime() < 15.0:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
+        
+        # *dichotic_pitch* updates
+        
+        # if dichotic_pitch is starting this frame...
+        if dichotic_pitch.status == NOT_STARTED and tThisFlip >= 5.0-frameTolerance:
+            # keep track of start time/frame for later
+            dichotic_pitch.frameNStart = frameN  # exact frame index
+            dichotic_pitch.tStart = t  # local t and not account for scr refresh
+            dichotic_pitch.tStartRefresh = tThisFlipGlobal  # on global time
+            # add timestamp to datafile
+            thisExp.addData('dichotic_pitch.started', tThisFlipGlobal)
+            # update status
+            dichotic_pitch.status = STARTED
+            dichotic_pitch.play(when=win)  # sync with win flip
+        
+        # if dichotic_pitch is stopping this frame...
+        if dichotic_pitch.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > dichotic_pitch.tStartRefresh + 10.0-frameTolerance or dichotic_pitch.isFinished:
+                # keep track of stop time/frame for later
+                dichotic_pitch.tStop = t  # not accounting for scr refresh
+                dichotic_pitch.tStopRefresh = tThisFlipGlobal  # on global time
+                dichotic_pitch.frameNStop = frameN  # exact frame index
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'dichotic_pitch.stopped')
+                # update status
+                dichotic_pitch.status = FINISHED
+                dichotic_pitch.stop()
+        
+        # *prog* updates
+        
+        # if prog is starting this frame...
+        if prog.status == NOT_STARTED and tThisFlip >= 5-frameTolerance:
+            # keep track of start time/frame for later
+            prog.frameNStart = frameN  # exact frame index
+            prog.tStart = t  # local t and not account for scr refresh
+            prog.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(prog, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'prog.started')
+            # update status
+            prog.status = STARTED
+            prog.setAutoDraw(True)
+        
+        # if prog is active this frame...
+        if prog.status == STARTED:
+            # update params
+            pass
+        
+        # if prog is stopping this frame...
+        if prog.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > prog.tStartRefresh + 10-frameTolerance:
+                # keep track of stop time/frame for later
+                prog.tStop = t  # not accounting for scr refresh
+                prog.tStopRefresh = tThisFlipGlobal  # on global time
+                prog.frameNStop = frameN  # exact frame index
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'prog.stopped')
+                # update status
+                prog.status = FINISHED
+                prog.setAutoDraw(False)
         
         # check for quit (typically the Esc key)
         if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -442,7 +529,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 thisExp=thisExp, 
                 win=win, 
                 timers=[routineTimer], 
-                playbackComponents=[]
+                playbackComponents=[dichotic_pitch]
             )
             # skip the frame we paused on
             continue
@@ -469,9 +556,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     trial.tStop = globalClock.getTime(format='float')
     trial.tStopRefresh = tThisFlipGlobal
     thisExp.addData('trial.stopped', trial.tStop)
+    # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
+    if trial.maxDurationReached:
+        routineTimer.addTime(-trial.maxDuration)
+    elif trial.forceEnded:
+        routineTimer.reset()
+    else:
+        routineTimer.addTime(-15.000000)
     thisExp.nextEntry()
-    # the Routine "trial" was not non-slip safe, so reset the non-slip timer
-    routineTimer.reset()
     
     # mark experiment as finished
     endExperiment(thisExp, win=win)
