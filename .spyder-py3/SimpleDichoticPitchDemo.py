@@ -14,7 +14,9 @@ fs = 44100          # Sampling rate
 duration = 2.0      # seconds
 n_samples = int(fs * duration)
 fc = 500.0  # Center frequency in Hz
-bw_frac = 0.05 * fc  # 5% bandwidth
+bw_frac = 0.05             # Correct: 5% (unitless)
+fwhm = fc * bw_frac        # FWHM is now 25 Hz when fc = 500
+sigma = fwhm / (2 * np.sqrt(2 * np.log(2)))  # ≈ fwhm / 2.355
 
 lowcut = fc * (1 - 0.025)
 highcut = fc * (1 + 0.025)
@@ -93,3 +95,27 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+
+# --- Step 6: Export audio files to _audio_renders_1bbn ---
+
+import os
+from datetime import datetime
+from scipy.io.wavfile import write as write_wav
+
+# Create output directory
+output_dir = "_audio_renders_1bbn"
+os.makedirs(output_dir, exist_ok=True)
+
+# Create timestamp
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+# Helper to save mono .wav files
+def save_wav(label, signal):
+    filename = f"{output_dir}/{timestamp}_{label}.wav"
+    write_wav(filename, fs, (signal * 32767).astype(np.int16))
+    print(f"Saved: {filename}")
+
+# Save both signals
+save_wav("bandpassed_mono", bandpassed)
+save_wav("notched_mono", notched)

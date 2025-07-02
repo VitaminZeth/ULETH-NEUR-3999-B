@@ -23,7 +23,7 @@ version = 86.0.0
 prev_high_dpi_custom_scale_factors = 1
 previous_crash = 
 last_inapp_appeal = 2025-07-01
-spyder_runs_for_appeal = 4
+spyder_runs_for_appeal = 5
 window/statusbar = True
 
 [update_manager]
@@ -326,7 +326,7 @@ console/use_cwd = True
 console/use_fixed_directory = False
 startup/use_project_or_home_directory = True
 startup/use_fixed_directory = False
-history = ['C:\\Users\\vitam']
+history = ['C:\\Users\\vitam\\.spyder-py3', 'C:\\Users\\vitam']
 
 [tours]
 enable = True
