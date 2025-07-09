@@ -15,9 +15,6 @@ fs = 44100          # Sampling rate
 duration = 2.0      # seconds
 n_samples = int(fs * duration)
 
-
-
-
 # --- Step 1: Generate broadband noise ---
 noise = np.random.normal(0, 1, n_samples)
 
@@ -34,19 +31,13 @@ std =  (M-1)/(2*alpha)     # Shape parameter (analogous to 'alpha' in MATLAB gau
 window = gaussian(M, std)  #a  std of 1000 will be full-width half max of ....
 mid=len(freqs)//2
 bandCentre = 5000
-
 window = np.roll(window,bandCentre-mid)
-
 plt.plot(freqs,window)
 
-
-
+# Create the complementary window
 complementaryWindow = 1-gaussian(M, std)
-
 complementaryWindow= np.roll(complementaryWindow,bandCentre-mid)
 plt.plot(freqs, complementaryWindow)
-
-
 
 
 # --- Apply Gaussian bandpass ---
@@ -57,9 +48,8 @@ bandpassed = np.fft.irfft(fft_bandpassed)
 fft_notched = fft_noise * complementaryWindow
 notched = np.fft.irfft(fft_notched)
 
+
 mixed = bandpassed+notched
-
-
 
 # --- Step 4: Optional playback ---
 print("Playing band-passed noise...")

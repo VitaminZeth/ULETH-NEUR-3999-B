@@ -12,7 +12,7 @@ import sounddevice as sd
 
 # --- Parameters ---
 fs = 44100          # Sampling rate
-sd.default.samplerate = fs # Set default sd Sampling rate
+# sd.default.samplerate = fs # Set default sd Sampling rate
 duration = 2.0      # seconds
 n_samples = int(fs * duration)
 
@@ -54,24 +54,24 @@ complementaryWindow2 = np.roll(complementaryWindow,bandCentre2-mid)
 plt.plot(freqs, complementaryWindow2) #plot the points
 
 # --- Apply Gaussian bandpass
-fft_bandpassed1 = fft_noise * window1
-bandpassed1 = np.fft.irfft(fft_bandpassed1)
+fft_bandpassed1 = fft_noise * window1 # Freq Domain
+bandpassed1 = np.fft.irfft(fft_bandpassed1) #plot the points
 
 # --- Apply a shifted Gaussian bandpass to a copy
-fft_bandpassed2 = fft_noise * window2
-bandpassed2 = np.fft.irfft(fft_bandpassed2)
+fft_bandpassed2 = fft_noise * window2 # Freq Domain
+bandpassed2 = np.fft.irfft(fft_bandpassed2) #plot the points
 
 # --- Design complementary notch (1 - Gaussian) ---
-fft_notched1 = fft_noise * complementaryWindow1
+fft_notched1 = fft_noise * complementaryWindow1 # Freq Domain
 notched1 = np.fft.irfft(fft_notched1) #plot the points
 
 # --- Design complementary shifted notch (1 - Gaussian) ---
-fft_notched2 = fft_noise * complementaryWindow2
+fft_notched2 = fft_noise * complementaryWindow2 # Freq Domain
 notched2 = np.fft.irfft(fft_notched2) #plot the points
 
 # --- Blend the files
-mixedl = (bandpassed1+notched1)
-mixedr = (bandpassed2+notched2)
+mixedl = (bandpassed1 + notched1)
+mixedr = (bandpassed2 + notched2)
                                             
 # --- Combine into a stereo array (two columns)                                            
 mixed = np.column_stack((mixedl, mixedr))
@@ -80,36 +80,38 @@ mixed = np.column_stack((mixedl, mixedr))
 
 # --- Play the band-passed
 print("Playing band-passed noise...")
-sd.play(bandpassed1 / np.max(np.abs(bandpassed1)))
+sd.play(bandpassed1 / np.max(np.abs(bandpassed1)), fs)
 sd.wait()
 
 print("Playing shifted band-passed noise...")
-sd.play(bandpassed2 / np.max(np.abs(bandpassed2)))
+sd.play(bandpassed2 / np.max(np.abs(bandpassed2)), fs)
 sd.wait()
 
 # --- Play the notched
 print("Playing notch-filtered noise...")
-sd.play(notched1 / np.max(np.abs(notched1)))
+sd.play(notched1 / np.max(np.abs(notched1)), fs)
 sd.wait()
 
 # --- Play the shifted notched
-print("Playing notch-filtered noise...")
-sd.play(notched2 / np.max(np.abs(notched2)))
+print("Playing shifted notch-filtered noise...")
+sd.play(notched2 / np.max(np.abs(notched2)), fs)
 sd.wait()
 
-# # --- Play the notched and band-passed together (mono)
-# print("Playing Left Channel...")
-# sd.play(mixedl / np.max(np.abs(mixedl)))
-# sd.wait()
+# --- Play the notched and band-passed together (mono)
+print("Playing Mixed Left Channel...")
+sd.play(mixedl / np.max(np.abs(mixedl)), fs)
+sd.wait()
 
-# # --- Play the notched and band-passed together (mono)
-# print("Playing Right Channel...")
-# sd.play(mixedr / np.max(np.abs(mixedr)))
-# sd.wait()
+# --- Play the notched and band-passed together (mono)
+print("Playing Mixed Right Channel...")
+sd.play(mixedr / np.max(np.abs(mixedr)), fs)
+sd.wait()
 
-# # --- Play the notched and band-passedtogether (stereo)
-# print("Playing MIXED L+R...")
-# sd.play(mixed / np.max(np.abs(mixed)))
-# sd.wait()
+# --- Play the notched and band-passedtogether (stereo)
+print("Playing Mixed L + R...")
+sd.play(mixed / np.max(np.abs(mixed)), fs)
+sd.wait()
 
-
+# NOTE TO SELF:
+#   Everythign worked out for the copy, but I need to fix it so that the playback of all the individual files works
+#   as well as the notch staying the same, and only moving the band-pass
