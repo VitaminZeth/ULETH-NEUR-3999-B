@@ -6,24 +6,17 @@ Created on Mon Jun 30 12:19:25 2025
 @author: Matthew
 """
 import numpy as np
+from scipy.signal.windows import gaussian
 import matplotlib.pyplot as plt
 import sounddevice as sd
 
 # --- Parameters ---
 fs = 44100          # Sampling rate
+sd.default.samplerate = fs # Set default sd Sampling rate
 duration = 2.0      # seconds
 n_samples = int(fs * duration)
-fc = 500.0  # Center frequency in Hz
-bw_frac = 0.05             # Correct: 5% (unitless)
-fwhm = fc * bw_frac        # FWHM is now 25 Hz when fc = 500
-sigma = fwhm / (2 * np.sqrt(2 * np.log(2)))  # ≈ fwhm / 2.355
 
-lowcut = fc * (1 - 0.025)
-highcut = fc * (1 + 0.025)
-
-print(f"Band edges: {lowcut:.2f} Hz – {highcut:.2f} Hz")
-
-# --- Step 1: Generate broadband noise ---
+# --- Generate broadband noise ---
 noise = np.random.normal(0, 1, n_samples)
 
 # --- FFT of the noise ---
@@ -31,91 +24,92 @@ fft_noise = np.fft.rfft(noise)
 freqs = np.fft.rfftfreq(n_samples, 1/fs)
 
 # --- Design Gaussian bandpass in frequency domain ---
-fwhm = fc * bw_frac
-sigma = fwhm / (2 * np.sqrt(2 * np.log(2)))  # ≈ fwhm / 2.355
-gaussian = np.exp(-0.5 * ((freqs - fc)/sigma)**2)
+M =   len(fft_noise)          # Length of window (odd number is common)
+alpha = 200
+std =  (M-1)/(2*alpha)     # Shape parameter (analogous to 'alpha' in MATLAB gausswin)
 
-# --- Apply Gaussian bandpass ---
-fft_bandpassed = fft_noise * gaussian
-bandpassed = np.fft.irfft(fft_bandpassed)
+# --- Create the window (band-passed)
+window = gaussian(M, std)  #a  std of 1000 will be full-width half max of ....
+mid=len(freqs)//2
+
+# --- Assigning the centre freqeuncy
+bandCentre1 = 5000
+bandCentre2 = 6000
+
+# --- Plotting the two bandpasses
+window1 = np.roll(window,bandCentre1-mid)
+plt.plot(freqs,window1)
+
+window2 = np.roll(window,bandCentre2-mid)
+plt.plot(freqs,window2)
+
+# --- Create the complementary window (notched)
+complementaryWindow = 1-gaussian(M, std)
+
+complementaryWindow1 = np.roll(complementaryWindow,bandCentre1-mid)
+plt.plot(freqs, complementaryWindow1) #plot the points
+
+# --- Create a copy of the complementary window (notched)
+complementaryWindow2 = np.roll(complementaryWindow,bandCentre2-mid)
+plt.plot(freqs, complementaryWindow2) #plot the points
+
+# --- Apply Gaussian bandpass
+fft_bandpassed1 = fft_noise * window1
+bandpassed1 = np.fft.irfft(fft_bandpassed1)
+
+# --- Apply a shifted Gaussian bandpass to a copy
+fft_bandpassed2 = fft_noise * window2
+bandpassed2 = np.fft.irfft(fft_bandpassed2)
 
 # --- Design complementary notch (1 - Gaussian) ---
-fft_notched = fft_noise * (1 - gaussian)
-notched = np.fft.irfft(fft_notched)
+fft_notched1 = fft_noise * complementaryWindow1
+notched1 = np.fft.irfft(fft_notched1) #plot the points
 
-# --- Normalize before playback ---
-bandpassed /= np.max(np.abs(bandpassed))
-notched /= np.max(np.abs(notched))
+# --- Design complementary shifted notch (1 - Gaussian) ---
+fft_notched2 = fft_noise * complementaryWindow2
+notched2 = np.fft.irfft(fft_notched2) #plot the points
 
+# --- Blend the files
+mixedl = (bandpassed1+notched1)
+mixedr = (bandpassed2+notched2)
+                                            
+# --- Combine into a stereo array (two columns)                                            
+mixed = np.column_stack((mixedl, mixedr))
 
-# --- Plot the frequency response ---
-plt.figure(figsize=(10, 5))
-plt.plot(freqs, gaussian, label='Gaussian Bandpass')
-plt.plot(freqs, 1 - gaussian, label='Complementary Notch')
-plt.xlabel('Frequency (Hz)')
-plt.ylabel('Gain')
-plt.title('Gaussian Filter in Frequency Domain')
-plt.legend()
-plt.grid(True)
-plt.show()
+# --- Optional playback ---
 
-
-# --- Step 4: Optional playback ---
+# --- Play the band-passed
 print("Playing band-passed noise...")
-sd.play(bandpassed / np.max(np.abs(bandpassed)), fs)
+sd.play(bandpassed1 / np.max(np.abs(bandpassed1)))
 sd.wait()
 
+print("Playing shifted band-passed noise...")
+sd.play(bandpassed2 / np.max(np.abs(bandpassed2)))
+sd.wait()
+
+# --- Play the notched
 print("Playing notch-filtered noise...")
-sd.play(notched / np.max(np.abs(notched)), fs)
+sd.play(notched1 / np.max(np.abs(notched1)))
 sd.wait()
 
-# --- Step 5: Plot the signals and their spectra ---
-plt.figure(figsize=(12, 6))
+# --- Play the shifted notched
+print("Playing notch-filtered noise...")
+sd.play(notched2 / np.max(np.abs(notched2)))
+sd.wait()
 
-# Time domain
-plt.subplot(2, 1, 1)
-plt.plot(bandpassed, label='Band-pass')
-plt.plot(notched, label='Notch-filtered', alpha=0.7)
-plt.title("Filtered Noise (Time Domain)")
-plt.xlabel("Sample")
-plt.ylabel("Amplitude")
-plt.legend()
+# # --- Play the notched and band-passed together (mono)
+# print("Playing Left Channel...")
+# sd.play(mixedl / np.max(np.abs(mixedl)))
+# sd.wait()
 
-# Frequency domain
-plt.subplot(2, 1, 2)
-freqs = np.fft.rfftfreq(n_samples, 1/fs)
-fft_band = np.abs(np.fft.rfft(bandpassed))
-fft_notch = np.abs(np.fft.rfft(notched))
-plt.semilogy(freqs, fft_band, label='Band-pass')
-plt.semilogy(freqs, fft_notch, label='Notch-filtered', alpha=0.7)
-plt.title("Filtered Noise (Frequency Domain)")
-plt.xlabel("Frequency (Hz)")
-plt.ylabel("Magnitude")
-plt.legend()
+# # --- Play the notched and band-passed together (mono)
+# print("Playing Right Channel...")
+# sd.play(mixedr / np.max(np.abs(mixedr)))
+# sd.wait()
 
-plt.tight_layout()
-plt.show()
+# # --- Play the notched and band-passedtogether (stereo)
+# print("Playing MIXED L+R...")
+# sd.play(mixed / np.max(np.abs(mixed)))
+# sd.wait()
 
 
-# --- Step 6: Export audio files to _audio_renders_1bbn ---
-
-import os
-from datetime import datetime
-from scipy.io.wavfile import write as write_wav
-
-# Create output directory
-output_dir = "_audio_renders_1bbn"
-os.makedirs(output_dir, exist_ok=True)
-
-# Create timestamp
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-# Helper to save mono .wav files
-def save_wav(label, signal):
-    filename = f"{output_dir}/{timestamp}_{label}.wav"
-    write_wav(filename, fs, (signal * 32767).astype(np.int16))
-    print(f"Saved: {filename}")
-
-# Save both signals
-save_wav("bandpassed_mono", bandpassed)
-save_wav("notched_mono", notched)
