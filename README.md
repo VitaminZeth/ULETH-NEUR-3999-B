@@ -8,5 +8,4 @@ AI Assisted?: Yes
 Superviser: Dr. Matt Tata
 Institution: University Of Lethbridge
 
-Purpose:
-Independant study recreating the "dichotic pitch stimuli" from "Dichotic Pitch: A new stimulus distinguishs normal and dyslexic auditory function" in the python coding language. Efforts are to see if correlation between psychoacoustic phenomena and individuals with reported tinnitus are evident. 
+Purpose: Independent study recreating the "dichotic pitch stimuli" from "Dichotic Pitch: A new stimulus distinguishes normal and dyslexic auditory function" in the python coding language. Efforts are to see if correlation between psychoacoustic phenomena and individuals with reported tinnitus are evident.
