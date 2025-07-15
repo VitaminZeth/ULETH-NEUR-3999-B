@@ -33,8 +33,8 @@ window = gaussian(M, std)  #a  std of 1000 will be full-width half max of ....
 mid=len(freqs)//2
 
 # --- Assigning the centre freqeuncy
-bandCentre1 = 5000
-bandCentre2 = 6000
+bandCentre1 = 1000
+bandCentre2 = 1000
 
 # --- Plotting the two bandpasses
 window1 = np.roll(window,bandCentre1-mid)
@@ -61,6 +61,23 @@ bandpassed1 = np.fft.irfft(fft_bandpassed1) #plot the points
 fft_bandpassed2 = fft_noise * window2 # Freq Domain
 bandpassed2 = np.fft.irfft(fft_bandpassed2) #plot the points
 
+# --- Apply a sample delay to the shifted Gaussian bandpassed copy
+
+# # Define the delay in samples
+# delay_samples = 10  # Adjust as needed
+
+# # Create a zero-padded array for the delay
+# delayed_bandpassed2 = np.pad(bandpassed2, (delay_samples, 0), 'constant')
+# ValueError: operands could not be broadcast together with shapes (88210,) (88200,) 
+
+# Shift by 2 samples to the right (delay) 
+delayed_bandpassed2 = np.roll(bandpassed2, 7)
+print(f"Delayed signal (delay integer shift): {delayed_bandpassed2}")
+
+# Shift by 2 samples to the left (advance)
+# advanced_bandpassed2 = np.roll(signal, -2)
+# print(f"Advanced signal (advance integer shift): {advanced_signal}")
+
 # --- Design complementary notch (1 - Gaussian) ---
 fft_notched1 = fft_noise * complementaryWindow1 # Freq Domain
 notched1 = np.fft.irfft(fft_notched1) #plot the points
@@ -71,7 +88,7 @@ notched2 = np.fft.irfft(fft_notched2) #plot the points
 
 # --- Blend the files
 mixedl = (bandpassed1 + notched1)
-mixedr = (bandpassed2 + notched2)
+mixedr = (delayed_bandpassed2 + notched2)
                                             
 # --- Combine into a stereo array (two columns)                                            
 mixed = np.column_stack((mixedl, mixedr))
@@ -84,7 +101,7 @@ sd.play(bandpassed1 / np.max(np.abs(bandpassed1)), fs)
 sd.wait()
 
 print("Playing shifted band-passed noise...")
-sd.play(bandpassed2 / np.max(np.abs(bandpassed2)), fs)
+sd.play(delayed_bandpassed2 / np.max(np.abs(delayed_bandpassed2)), fs)
 sd.wait()
 
 # --- Play the notched
@@ -107,8 +124,25 @@ print("Playing Mixed Right Channel...")
 sd.play(mixedr / np.max(np.abs(mixedr)), fs)
 sd.wait()
 
+print("Playing Stimuli 4 Times...")
+
 # --- Play the notched and band-passedtogether (stereo)
-print("Playing Mixed L + R...")
+print("Playing Mixed L + R... 1")
+sd.play(mixed / np.max(np.abs(mixed)), fs)
+sd.wait()
+
+# --- Play the notched and band-passedtogether (stereo)
+print("Playing Mixed L + R... 2")
+sd.play(mixed / np.max(np.abs(mixed)), fs)
+sd.wait()
+
+# --- Play the notched and band-passedtogether (stereo)
+print("Playing Mixed L + R... 3")
+sd.play(mixed / np.max(np.abs(mixed)), fs)
+sd.wait()
+
+# --- Play the notched and band-passedtogether (stereo)
+print("Playing Mixed L + R... 4")
 sd.play(mixed / np.max(np.abs(mixed)), fs)
 sd.wait()
 
