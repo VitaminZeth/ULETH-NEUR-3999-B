@@ -3,7 +3,7 @@
 """
 Created on Mon Jun 30 12:19:25 2025
 
-@author: Matthew
+@author: Seth Villamil & ChatGPT
 """
 import numpy as np
 from scipy.signal.windows import gaussian
@@ -65,6 +65,7 @@ plt.plot(freqs, complementaryWindow2) #plot the points
 
 # --- Volume parameter for the bandpass components ---
 bandpass_volume = 5.0  # 1.0 = original level, <1 = quieter, >1 = louder
+background_volume = 1.0   # controls loudness of the notched (background) noise
 
 # --- Apply Gaussian bandpass
 fft_bandpassed1 = fft_noise * window1 # Freq Domain
@@ -93,11 +94,11 @@ print(f"Delayed signal (delay integer shift): {delayed_bandpassed2}")
 
 # --- Design complementary notch (1 - Gaussian) ---
 fft_notched1 = fft_noise * complementaryWindow1 # Freq Domain
-notched1 = np.fft.irfft(fft_notched1) #plot the points
+notched1 = np.fft.irfft(fft_notched1) * background_volume #plot the points
 
 # --- Design complementary shifted notch (1 - Gaussian) ---
 fft_notched2 = fft_noise * complementaryWindow2 # Freq Domain
-notched2 = np.fft.irfft(fft_notched2) #plot the points
+notched2 = np.fft.irfft(fft_notched2) * background_volume #plot the points
 
 # Shift by x samples to the right (delay) 
 # delayed_signal = np.roll(signal, -2)
@@ -132,7 +133,7 @@ sd.wait()
 
 # --- Play the shifted notched
 print("Playing shifted notch-filtered noise...")
-sd.play(notched2 / np.max(np.abs(delayed_notched2)), fs)
+sd.play(notched2 / np.max(np.abs(advanced_notched2)), fs)
 sd.wait()
 
 # --- Play the notched and band-passed together (mono)
