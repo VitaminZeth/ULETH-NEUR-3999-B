@@ -25,8 +25,8 @@ freqs = np.fft.rfftfreq(n_samples, 1/fs)
 
 # --- Design Gaussian bandpass in frequency domain ---
 M =   len(fft_noise)          # Length of window (odd number is common)
-alpha = 200
-std =  (M-1)/(2*alpha)     # Shape parameter (analogous to 'alpha' in MATLAB gausswin)
+alpha = 500
+std =  (M-2)/(2*alpha)     # Shape parameter (analogous to 'alpha' in MATLAB gausswin)
 
 # --- Create the window (band-passed)
 window = gaussian(M, std)  #a  std of 1000 will be full-width half max of ....
@@ -71,7 +71,7 @@ bandpassed2 = np.fft.irfft(fft_bandpassed2) #plot the points
 # ValueError: operands could not be broadcast together with shapes (88210,) (88200,) 
 
 # Shift by 2 samples to the right (delay) 
-delayed_bandpassed2 = np.roll(bandpassed2, 7)
+delayed_bandpassed2 = np.roll(bandpassed2, 21)
 print(f"Delayed signal (delay integer shift): {delayed_bandpassed2}")
 
 # Shift by 2 samples to the left (advance)
@@ -124,27 +124,27 @@ print("Playing Mixed Right Channel...")
 sd.play(mixedr / np.max(np.abs(mixedr)), fs)
 sd.wait()
 
-print("Playing Stimuli 4 Times...")
+print("Playing Stimuli 1 Time...")
 
 # --- Play the notched and band-passedtogether (stereo)
 print("Playing Mixed L + R... 1")
 sd.play(mixed / np.max(np.abs(mixed)), fs)
 sd.wait()
 
-# --- Play the notched and band-passedtogether (stereo)
-print("Playing Mixed L + R... 2")
-sd.play(mixed / np.max(np.abs(mixed)), fs)
-sd.wait()
+# # --- Play the notched and band-passedtogether (stereo)
+# print("Playing Mixed L + R... 2")
+# sd.play(mixed / np.max(np.abs(mixed)), fs)
+# sd.wait()
 
-# --- Play the notched and band-passedtogether (stereo)
-print("Playing Mixed L + R... 3")
-sd.play(mixed / np.max(np.abs(mixed)), fs)
-sd.wait()
+# # --- Play the notched and band-passedtogether (stereo)
+# print("Playing Mixed L + R... 3")
+# sd.play(mixed / np.max(np.abs(mixed)), fs)
+# sd.wait()
 
-# --- Play the notched and band-passedtogether (stereo)
-print("Playing Mixed L + R... 4")
-sd.play(mixed / np.max(np.abs(mixed)), fs)
-sd.wait()
+# # --- Play the notched and band-passedtogether (stereo)
+# print("Playing Mixed L + R... 4")
+# sd.play(mixed / np.max(np.abs(mixed)), fs)
+# sd.wait()
 
 # NOTE TO SELF:
 #   Everythign worked out for the copy, but I need to fix it so that the playback of all the individual files works
