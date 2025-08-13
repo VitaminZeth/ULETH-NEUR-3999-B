@@ -29,19 +29,22 @@ noise = np.random.normal(0, 1, n_samples)
 fft_noise = np.fft.rfft(noise)
 freqs = np.fft.rfftfreq(n_samples, 1/fs)
 
-# --- Design Gaussian bandpass in frequency domain ---
-M =   len(fft_noise)          # Length of window (odd number is common)
-alpha = 200
-std =  (M-1)/(2*alpha)     # Shape parameter (analogous to 'alpha' in MATLAB gausswin)
-# std =  (1)/(20)  
+# --- Assigning the centre frequencies ---
+bandCentre1 = 500  # Hz
+bandCentre2 = 500  # Hz
 
-# --- Create the window (band-passed)
-window = gaussian(M, std)  #a  std of 1000 will be full-width half max of ....
-mid=len(freqs)//2
+# --- Desired filter bandwidth: 1/20th of center frequency ---
+bandwidth_hz = bandCentre1 / 20.0
+bin_width_hz = fs / n_samples
+bandwidth_bins = bandwidth_hz / bin_width_hz
 
-# --- Assigning the centre freqeuncy
-bandCentre1 = 1000
-bandCentre2 = 1000
+# --- Convert to Gaussian std in bins ---
+std = bandwidth_bins / 2.355
+
+# --- Create Gaussian window ---
+M = len(fft_noise)
+window = gaussian(M, std)
+mid = len(freqs) // 2
 
 # --- Plotting the two bandpasses
 window1 = np.roll(window,bandCentre1-mid)
@@ -61,7 +64,7 @@ complementaryWindow2 = np.roll(complementaryWindow,bandCentre2-mid)
 plt.plot(freqs, complementaryWindow2) #plot the points
 
 # --- Volume parameter for the bandpass components ---
-bandpass_volume = 1.0  # 1.0 = original level, <1 = quieter, >1 = louder
+bandpass_volume = 5.0  # 1.0 = original level, <1 = quieter, >1 = louder
 
 # --- Apply Gaussian bandpass
 fft_bandpassed1 = fft_noise * window1 # Freq Domain
@@ -80,11 +83,11 @@ bandpassed2 = np.fft.irfft(fft_bandpassed2) * bandpass_volume #plot the points
 # delayed_bandpassed2 = np.pad(bandpassed2, (delay_samples, 0), 'constant')
 # ValueError: operands could not be broadcast together with shapes (88210,) (88200,) 
 
-# Shift by 2 samples to the right (delay) 
+# Shift by x samples to the right (delay) 
 delayed_bandpassed2 = np.roll(bandpassed2, delay_samples)
 print(f"Delayed signal (delay integer shift): {delayed_bandpassed2}")
 
-# # Shift by 2 samples to the left (advance)
+# # Shift by x samples to the left (advance)
 # advanced_bandpassed2 = np.roll(signal, -2)
 # print(f"Advanced signal (advance integer shift): {advanced_signal}")
 
@@ -96,12 +99,17 @@ notched1 = np.fft.irfft(fft_notched1) #plot the points
 fft_notched2 = fft_noise * complementaryWindow2 # Freq Domain
 notched2 = np.fft.irfft(fft_notched2) #plot the points
 
-delayed_notched2 = np.roll(notched2, -delay_samples)
-print(f"Delayed signal (delay integer shift): {delayed_notched2}")
+# Shift by x samples to the right (delay) 
+# delayed_signal = np.roll(signal, -2)
+# print(f"delayed signal (advance integer shift): {delayed_signal}")
+
+# Shift by x samples to the left (advance) 
+advanced_notched2 = np.roll(notched2, -delay_samples)
+print(f"Advanced signal (delay integer shift): {advanced_notched2}")
 
 # --- Blend the files
 mixedl = (bandpassed1 + notched1)
-mixedr = (delayed_bandpassed2 + delayed_notched2)
+mixedr = (delayed_bandpassed2 + advanced_notched2)
                                             
 # --- Combine into a stereo array (two columns)                                            
 mixed = np.column_stack((mixedl, mixedr))
