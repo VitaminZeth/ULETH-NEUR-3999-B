@@ -181,6 +181,179 @@ wavwrite(outdir / "21_notch_ch2_advanced.wav", fs, to_int16(advanced_notched2))
 wavwrite(outdir / "30_mixed_left.wav", fs, to_int16(mixedl))
 wavwrite(outdir / "31_mixed_right.wav", fs, to_int16(mixedr))
 
+# =========================
+# FFT export + visualization
+# =========================
+import csv
+
+# Make dedicated subfolder for FFT CSVs
+fft_csv_dir = outdir / "fft_csv"
+fft_csv_dir.mkdir(parents=True, exist_ok=True)
+
+# ---- Helper for exporting FFTs ----
+def export_fft_csv(signal, fs, filename):
+    """Export FFT of a 1D signal to CSV with columns: Frequency, Magnitude_dBFS, Phase."""
+    fft_vals = np.fft.rfft(signal)
+    freqs_local = np.fft.rfftfreq(len(signal), 1/fs)
+    mag = np.abs(fft_vals)
+    mag_ref = np.max(mag) if np.max(mag) > 0 else 1.0
+    mag_dbfs = 20.0 * np.log10(np.clip(mag / mag_ref, 1e-12, None))
+    phase = np.angle(fft_vals)
+
+    path = fft_csv_dir / filename
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["Frequency_Hz", "Magnitude_dBFS", "Phase_rad"])
+        for fi, mi, pi in zip(freqs_local, mag_dbfs, phase):
+            w.writerow([fi, mi, pi])
+    print(f"Saved FFT CSV to: {path}")
+
+# ---- 1) Export FFTs to CSV (noise + mono mixes) ----
+export_fft_csv(noise, fs, "01_noise_fft.csv")
+export_fft_csv(mixedl, fs, "02_left_mix_fft.csv")
+export_fft_csv(mixedr, fs, "03_right_mix_fft.csv")
+
+# ---- 2) Export Stereo FFT CSV (left & right together) ----
+fft_left = np.fft.rfft(mixedl)
+fft_right = np.fft.rfft(mixedr)
+freqs_lr = np.fft.rfftfreq(len(mixedl), 1/fs)
+
+magL = np.abs(fft_left); magR = np.abs(fft_right)
+mag_ref = max(np.max(magL), np.max(magR), 1.0)  # use max of both channels
+magL_dbfs = 20.0 * np.log10(np.clip(magL / mag_ref, 1e-12, None))
+magR_dbfs = 20.0 * np.log10(np.clip(magR / mag_ref, 1e-12, None))
+phaseL = np.angle(fft_left); phaseR = np.angle(fft_right)
+
+stereo_csv_path = fft_csv_dir / "04_stereo_mix_fft.csv"
+with open(stereo_csv_path, "w", newline="", encoding="utf-8") as f:
+    w = csv.writer(f)
+    w.writerow(["Frequency_Hz",
+                "Left_Mag_dBFS", "Left_Phase_rad",
+                "Right_Mag_dBFS", "Right_Phase_rad"])
+    for fi, ml, pl, mr, pr in zip(freqs_lr, magL_dbfs, phaseL, magR_dbfs, phaseR):
+        w.writerow([fi, ml, pl, mr, pr])
+
+print(f"Saved stereo FFT CSV to: {stereo_csv_path}")
+
+# =========================
+# Hi-res spectral visualizations (self-contained)
+# =========================
+
+# Make sure we've got left/right spectra and normalized magnitudes
+fft_left = np.fft.rfft(mixedl)
+fft_right = np.fft.rfft(mixedr)
+magL = np.abs(fft_left)
+magR = np.abs(fft_right)
+left_mag_norm = magL / (np.max(magL) if np.max(magL) > 0 else 1.0)
+right_mag_norm = magR / (np.max(magR) if np.max(magR) > 0 else 1.0)
+
+# Scale windows to [0,1] for clear overlays
+w_left_bp = window1 / (np.max(window1) if np.max(window1) > 0 else 1.0)
+w_left_nt = complementaryWindow1 / (np.max(complementaryWindow1) if np.max(complementaryWindow1) > 0 else 1.0)
+w_right_bp = window2 / (np.max(window2) if np.max(window2) > 0 else 1.0)
+w_right_nt = complementaryWindow2 / (np.max(complementaryWindow2) if np.max(complementaryWindow2) > 0 else 1.0)
+
+# ---- Filters overview (both ears), hi-res ----
+plt.figure(figsize=(12, 6))
+plt.title("Filter Windows (Band-pass and Complementary Notch) - Both Ears")
+plt.plot(freqs, w_left_bp, label="Left: Band-pass (scaled)")
+plt.plot(freqs, w_left_nt, label="Left: Notch (scaled)", linestyle="--")
+plt.plot(freqs, w_right_bp, label="Right: Band-pass (scaled)")
+plt.plot(freqs, w_right_nt, label="Right: Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(0, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02_filters_overview_left_right.png", dpi=300)
+plt.close()
+
+# ---- Left ear: full spectrum (linear x) ----
+plt.figure(figsize=(12, 6))
+plt.title("Left Ear Spectrum with Filter Windows")
+plt.plot(freqs, left_mag_norm, label="Left Spectrum (|FFT|, normalized)")
+plt.plot(freqs, w_left_bp, label="Left Band-pass (scaled)", linestyle="--")
+plt.plot(freqs, w_left_nt, label="Left Notch (scaled)", linestyle=":")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Normalized magnitude")
+plt.legend(loc="best")
+plt.xlim(0, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "03_left_spectrum_with_filters.png", dpi=300)
+plt.close()
+
+# ---- Left ear: zoom around band centre ±3×bandwidth ----
+plt.figure(figsize=(12, 6))
+plt.title("Left Ear Spectrum (Zoomed Near Band Centre)")
+plt.plot(freqs, left_mag_norm, label="Left Spectrum (|FFT|, normalized)")
+plt.plot(freqs, w_left_bp, label="Left Band-pass (scaled)", linestyle="--")
+plt.plot(freqs, w_left_nt, label="Left Notch (scaled)", linestyle=":")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Normalized magnitude")
+plt.legend(loc="best")
+plt.xlim(bandCentre1 - 3*bandwidth_hz, bandCentre1 + 3*bandwidth_hz)
+plt.tight_layout()
+plt.savefig(outdir / "03_left_spectrum_zoom.png", dpi=300)
+plt.close()
+
+# ---- Left ear: log-scale frequency ----
+plt.figure(figsize=(12, 6))
+plt.title("Left Ear Spectrum (Log-Scale Frequency Axis)")
+plt.semilogx(freqs, left_mag_norm, label="Left Spectrum (|FFT|, normalized)")
+plt.semilogx(freqs, w_left_bp, label="Left Band-pass (scaled)", linestyle="--")
+plt.semilogx(freqs, w_left_nt, label="Left Notch (scaled)", linestyle=":")
+plt.xlabel("Frequency (Hz, log scale)")
+plt.ylabel("Normalized magnitude")
+plt.legend(loc="best")
+plt.xlim(20, fs/2)  # avoid 0 on log scale
+plt.tight_layout()
+plt.savefig(outdir / "03_left_spectrum_log.png", dpi=300)
+plt.close()
+
+# ---- Right ear: full spectrum (linear x) ----
+plt.figure(figsize=(12, 6))
+plt.title("Right Ear Spectrum with Filter Windows")
+plt.plot(freqs, right_mag_norm, label="Right Spectrum (|FFT|, normalized)")
+plt.plot(freqs, w_right_bp, label="Right Band-pass (scaled)", linestyle="--")
+plt.plot(freqs, w_right_nt, label="Right Notch (scaled)", linestyle=":")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Normalized magnitude")
+plt.legend(loc="best")
+plt.xlim(0, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "04_right_spectrum_with_filters.png", dpi=300)
+plt.close()
+
+# ---- Right ear: zoom around band centre ±3×bandwidth ----
+plt.figure(figsize=(12, 6))
+plt.title("Right Ear Spectrum (Zoomed Near Band Centre)")
+plt.plot(freqs, right_mag_norm, label="Right Spectrum (|FFT|, normalized)")
+plt.plot(freqs, w_right_bp, label="Right Band-pass (scaled)", linestyle="--")
+plt.plot(freqs, w_right_nt, label="Right Notch (scaled)", linestyle=":")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Normalized magnitude")
+plt.legend(loc="best")
+plt.xlim(bandCentre2 - 3*bandwidth_hz, bandCentre2 + 3*bandwidth_hz)
+plt.tight_layout()
+plt.savefig(outdir / "04_right_spectrum_zoom.png", dpi=300)
+plt.close()
+
+# ---- Right ear: log-scale frequency ----
+plt.figure(figsize=(12, 6))
+plt.title("Right Ear Spectrum (Log-Scale Frequency Axis)")
+plt.semilogx(freqs, right_mag_norm, label="Right Spectrum (|FFT|, normalized)")
+plt.semilogx(freqs, w_right_bp, label="Right Band-pass (scaled)", linestyle="--")
+plt.semilogx(freqs, w_right_nt, label="Right Notch (scaled)", linestyle=":")
+plt.xlabel("Frequency (Hz, log scale)")
+plt.ylabel("Normalized magnitude")
+plt.legend(loc="best")
+plt.xlim(20, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "04_right_spectrum_log.png", dpi=300)
+plt.close()
+
+
+
 # --- Optional playback ---
 
 # --- Play the band-passed
