@@ -6,7 +6,7 @@ Created on Mon Jun 30 12:19:25 2025
 @author: Seth Villamil & ChatGPT
 """
 import numpy as np
-from scipy.signal.windows import gaussian
+# from scipy.signal.windows import gaussian
 import matplotlib.pyplot as plt
 import sounddevice as sd
 from pathlib import Path
@@ -51,27 +51,164 @@ bandwidth_bins = bandwidth_hz / bin_width_hz
 # --- Convert to Gaussian std in bins ---
 std = bandwidth_bins / 2.355
 
-# --- Create Gaussian window ---
-M = len(fft_noise)
-window = gaussian(M, std)
-mid = len(freqs) // 2
+# --- Create aligned Gaussian windows in the frequency (bin) domain ---
 
-# --- Plotting the two bandpasses
-window1 = np.roll(window,bandCentre1-mid)
-plt.plot(freqs,window1)
+M = len(fft_noise)                # number of RFFT bins (0..N/2)
+bin_width_hz = fs / n_samples     # Hz per bin
 
-window2 = np.roll(window,bandCentre2-mid)
-plt.plot(freqs,window2)
+def freq_to_bin(f_hz: float) -> int:
+    """Clamp frequency to valid range and map to nearest RFFT bin index."""
+    f_hz = max(0.0, min(f_hz, fs / 2.0))
+    return int(round(f_hz / bin_width_hz))
 
-# --- Create the complementary window (notched)
-complementaryWindow = 1-gaussian(M, std)
+# std is already in bins (bandwidth_bins / 2.355)
+sigma_bins = max(std, 1e-9)
 
-complementaryWindow1 = np.roll(complementaryWindow,bandCentre1-mid)
-plt.plot(freqs, complementaryWindow1) #plot the points
+def gaussian_at_bin(center_bin: int, sigma_bins: float, num_bins: int) -> np.ndarray:
+    """Unit-peak Gaussian centered at center_bin, defined over RFFT bins 0..num_bins-1."""
+    n = np.arange(num_bins)
+    return np.exp(-0.5 * ((n - center_bin) / sigma_bins) ** 2)
 
-# --- Create a copy of the complementary window (notched)
-complementaryWindow2 = np.roll(complementaryWindow,bandCentre2-mid)
-plt.plot(freqs, complementaryWindow2) #plot the points
+# Centers in bin indices
+cbin1 = freq_to_bin(bandCentre1)
+cbin2 = freq_to_bin(bandCentre2)
+
+# Band-pass windows centered exactly at bandCentre* (unit peak = 1.0)
+window1 = gaussian_at_bin(cbin1, sigma_bins, M)
+window2 = gaussian_at_bin(cbin2, sigma_bins, M)
+
+# Complementary notches that null the band-pass region
+complementaryWindow1 = 1.0 - window1
+complementaryWindow2 = 1.0 - window2
+
+# Optional: sanity check
+print(f"BandCentre1: {bandCentre1} Hz -> bin {cbin1}, actual freq {cbin1*bin_width_hz:.2f} Hz")
+print(f"BandCentre2: {bandCentre2} Hz -> bin {cbin2}, actual freq {cbin2*bin_width_hz:.2f} Hz")
+
+from datetime import datetime
+
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+outdir = Path(__file__).resolve().parent / "[to_analyze]" / timestamp
+outdir.mkdir(parents=True, exist_ok=True)
+print(f"\nRendered WAVs will be saved to: {outdir}\n")
+
+# =========================
+# Window visualizations (aligned) — high-res, full/zoom/log
+# =========================
+
+# Scale windows to [0,1] for overlays and consistent y-axis
+w_left_bp  = window1 / (np.max(window1) if np.max(window1) > 0 else 1.0)
+w_left_nt  = complementaryWindow1 / (np.max(complementaryWindow1) if np.max(complementaryWindow1) > 0 else 1.0)
+w_right_bp = window2 / (np.max(window2) if np.max(window2) > 0 else 1.0)
+w_right_nt = complementaryWindow2 / (np.max(complementaryWindow2) if np.max(complementaryWindow2) > 0 else 1.0)
+
+# --- Overview: both ears (linear x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Filter Windows (Aligned) — Both Ears")
+plt.plot(freqs, w_left_bp,  label="Left Band-pass (scaled)")
+plt.plot(freqs, w_left_nt,  label="Left Notch (scaled)", linestyle="--")
+plt.plot(freqs, w_right_bp, label="Right Band-pass (scaled)")
+plt.plot(freqs, w_right_nt, label="Right Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(0, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02a_windows_overview_linear.png", dpi=300)
+plt.close()
+
+# --- Overview: both ears (log x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Filter Windows (Aligned, Log-x) — Both Ears")
+plt.semilogx(freqs, w_left_bp,  label="Left Band-pass (scaled)")
+plt.semilogx(freqs, w_left_nt,  label="Left Notch (scaled)", linestyle="--")
+plt.semilogx(freqs, w_right_bp, label="Right Band-pass (scaled)")
+plt.semilogx(freqs, w_right_nt, label="Right Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz, log scale)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(20, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02b_windows_overview_log.png", dpi=300)
+plt.close()
+
+# --- Left ear: full (linear x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Left Ear — Window Shapes (Aligned)")
+plt.plot(freqs, w_left_bp, label="Left Band-pass (scaled)")
+plt.plot(freqs, w_left_nt, label="Left Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(0, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02c_left_windows_linear.png", dpi=300)
+plt.close()
+
+# --- Left ear: zoom around bandCentre1 ± 3×bandwidth_hz (linear x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Left Ear — Window Zoom Around Band Centre")
+plt.plot(freqs, w_left_bp, label="Left Band-pass (scaled)")
+plt.plot(freqs, w_left_nt, label="Left Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(bandCentre1 - 3*bandwidth_hz, bandCentre1 + 3*bandwidth_hz)
+plt.tight_layout()
+plt.savefig(outdir / "02d_left_windows_zoom.png", dpi=300)
+plt.close()
+
+# --- Left ear: full (log x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Left Ear — Window Shapes (Aligned, Log-x)")
+plt.semilogx(freqs, w_left_bp, label="Left Band-pass (scaled)")
+plt.semilogx(freqs, w_left_nt, label="Left Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz, log scale)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(20, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02e_left_windows_log.png", dpi=300)
+plt.close()
+
+# --- Right ear: full (linear x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Right Ear — Window Shapes (Aligned)")
+plt.plot(freqs, w_right_bp, label="Right Band-pass (scaled)")
+plt.plot(freqs, w_right_nt, label="Right Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(0, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02f_right_windows_linear.png", dpi=300)
+plt.close()
+
+# --- Right ear: zoom around bandCentre2 ± 3×bandwidth_hz (linear x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Right Ear — Window Zoom Around Band Centre")
+plt.plot(freqs, w_right_bp, label="Right Band-pass (scaled)")
+plt.plot(freqs, w_right_nt, label="Right Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(bandCentre2 - 3*bandwidth_hz, bandCentre2 + 3*bandwidth_hz)
+plt.tight_layout()
+plt.savefig(outdir / "02g_right_windows_zoom.png", dpi=300)
+plt.close()
+
+# --- Right ear: full (log x) ---
+plt.figure(figsize=(12, 6))
+plt.title("Right Ear — Window Shapes (Aligned, Log-x)")
+plt.semilogx(freqs, w_right_bp, label="Right Band-pass (scaled)")
+plt.semilogx(freqs, w_right_nt, label="Right Notch (scaled)", linestyle="--")
+plt.xlabel("Frequency (Hz, log scale)")
+plt.ylabel("Gain (scaled)")
+plt.legend(loc="best")
+plt.xlim(20, fs/2)
+plt.tight_layout()
+plt.savefig(outdir / "02h_right_windows_log.png", dpi=300)
+plt.close()
 
 # --- Volume parameter for the bandpass components ---
 bandpass_volume = 1.0  # 1.0 = original level, <1 = quieter, >1 = louder
@@ -155,7 +292,8 @@ params_lines = [
     f"bandwidth_bins: {bandwidth_bins}",
     f"gaussian_std_bins (std): {std}",
     f"fft_length_M: {M}",
-    f"mid_index: {mid}",
+    f"cbin1: {cbin1} (realized center {cbin1*bin_width_hz:.2f} Hz)",
+    f"cbin2: {cbin2} (realized center {cbin2*bin_width_hz:.2f} Hz)",
     "",
     "[Levels]",
     f"bandpass_volume: {bandpass_volume}",
@@ -352,8 +490,6 @@ plt.tight_layout()
 plt.savefig(outdir / "04_right_spectrum_log.png", dpi=300)
 plt.close()
 
-
-
 # --- Optional playback ---
 
 # --- Play the band-passed
@@ -370,9 +506,8 @@ print("Playing notch-filtered noise...")
 sd.play(notched1 / np.max(np.abs(notched1)), fs)
 sd.wait()
 
-# --- Play the shifted notched
 print("Playing shifted notch-filtered noise...")
-sd.play(notched2 / np.max(np.abs(advanced_notched2)), fs)
+sd.play(advanced_notched2 / (np.max(np.abs(advanced_notched2)) if np.max(np.abs(advanced_notched2)) > 0 else 1.0), fs)
 sd.wait()
 
 # --- Play the notched and band-passed together (mono)
