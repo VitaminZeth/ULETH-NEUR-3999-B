@@ -125,10 +125,50 @@ mixedr = (delayed_bandpassed2 + advanced_notched2)
 # --- Combine into a stereo array (two columns)                                            
 mixed = np.column_stack((mixedl, mixedr))
 
+from datetime import datetime
+
 # === Exports: make folder and write WAVs (44100 Hz, 16-bit) ===
-outdir = Path(__file__).resolve().parent / "[to_analyze]"
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+outdir = Path(__file__).resolve().parent / "[to_analyze]" / timestamp
 outdir.mkdir(parents=True, exist_ok=True)
+
 print(f"\nRendered WAVs will be saved to: {outdir}\n")
+
+# ---- Write a parameters snapshot for this run ----
+# Captures key values from setup (lines ~23–57) and volumes (lines ~76–78)
+params_lines = [
+    f"Run timestamp: {timestamp}",
+    f"Output folder: {outdir}",
+    "",
+    "[Signal & Timing]",
+    f"fs (Hz): {fs}",
+    f"duration (s): {duration}",
+    f"n_samples: {n_samples}",
+    f"delay_ms: {delay_ms}",
+    f"delay_samples: {delay_samples}",
+    "",
+    "[Frequency & Windows]",
+    f"bandCentre1 (Hz): {bandCentre1}",
+    f"bandCentre2 (Hz): {bandCentre2}",
+    f"bandwidth_hz (center/20): {bandwidth_hz}",
+    f"bin_width_hz: {bin_width_hz}",
+    f"bandwidth_bins: {bandwidth_bins}",
+    f"gaussian_std_bins (std): {std}",
+    f"fft_length_M: {M}",
+    f"mid_index: {mid}",
+    "",
+    "[Levels]",
+    f"bandpass_volume: {bandpass_volume}",
+    f"background_volume: {background_volume}",
+    "",
+    "[Notes]",
+    "This file logs the parameter values used to render the WAVs in this run."
+]
+
+with open(outdir / "00_run_parameters.txt", "w", encoding="utf-8") as f:
+    f.write("\n".join(params_lines))
+
+print(f"Wrote parameters snapshot to: {outdir / '00_run_parameters.txt'}")
 
 # Originals and individual filters
 wavwrite(outdir / "00_original_noise.wav", fs, to_int16(noise))
