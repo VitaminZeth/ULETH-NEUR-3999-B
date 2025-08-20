@@ -489,61 +489,44 @@ plt.tight_layout()
 plt.savefig(spectra_dir / "04_right_spectrum_log.png", dpi=300)
 plt.close()
 
-# --- Optional playback ---
+# --- Optional playback (safe normalization everywhere) ---
+def _safe_norm(x: np.ndarray) -> np.ndarray:
+    peak = np.max(np.abs(x)) if np.size(x) else 0.0
+    return x / (peak if peak > 0 else 1.0)
 
-# --- Play the band-passed
 print("Playing band-passed noise...")
-sd.play(bandpassed1 / np.max(np.abs(bandpassed1)), fs)
+sd.play(_safe_norm(bandpassed1), fs)
 sd.wait()
 
 print("Playing shifted band-passed noise...")
-sd.play(delayed_bandpassed2 / np.max(np.abs(delayed_bandpassed2)), fs)
+sd.play(_safe_norm(delayed_bandpassed2), fs)
 sd.wait()
 
-# --- Play the notched
 print("Playing notch-filtered noise...")
-sd.play(notched1 / np.max(np.abs(notched1)), fs)
+sd.play(_safe_norm(notched1), fs)
 sd.wait()
 
 print("Playing shifted notch-filtered noise...")
-sd.play(advanced_notched2 / (np.max(np.abs(advanced_notched2)) if np.max(np.abs(advanced_notched2)) > 0 else 1.0), fs)
+sd.play(_safe_norm(advanced_notched2), fs)
 sd.wait()
 
-# --- Play the notched and band-passed together (mono)
 print("Playing Mixed Left Channel...")
-sd.play(mixedl / np.max(np.abs(mixedl)), fs)
+sd.play(_safe_norm(mixedl), fs)
 sd.wait()
 
-# --- Play the notched and band-passed together (mono)
 print("Playing Mixed Right Channel...")
-sd.play(mixedr / np.max(np.abs(mixedr)), fs)
+sd.play(_safe_norm(mixedr), fs)
 sd.wait()
 
 print("Playing Stimuli 1 Time...")
-
 print("Playing Mixed L + R... 1")
-played_stereo = mixed / (np.max(np.abs(mixed)) if np.max(np.abs(mixed)) > 0 else 1.0)
+played_stereo = _safe_norm(mixed)
 sd.play(played_stereo, fs)
 sd.wait()
 
 # Save exactly what was played to your ears
 wavwrite(outdir / "40_played_stereo_final.wav", fs, to_int16(played_stereo))
 print(f"Saved final played stereo render to: {outdir / '40_played_stereo_final.wav'}")
-
-# # --- Play the notched and band-passedtogether (stereo)
-# print("Playing Mixed L + R... 2")
-# sd.play(mixed / np.max(np.abs(mixed)), fs)
-# sd.wait()
-
-# # --- Play the notched and band-passedtogether (stereo)
-# print("Playing Mixed L + R... 3")
-# sd.play(mixed / np.max(np.abs(mixed)), fs)
-# sd.wait()
-
-# # --- Play the notched and band-passedtogether (stereo)
-# print("Playing Mixed L + R... 4")
-# sd.play(mixed / np.max(np.abs(mixed)), fs)
-# sd.wait()
 
 # NOTE TO SELF:
 #   Everythign worked out for the copy, but I need to fix it so that the playback of all the individual files works
