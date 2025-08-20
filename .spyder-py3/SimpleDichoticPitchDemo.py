@@ -74,7 +74,7 @@ complementaryWindow2 = np.roll(complementaryWindow,bandCentre2-mid)
 plt.plot(freqs, complementaryWindow2) #plot the points
 
 # --- Volume parameter for the bandpass components ---
-bandpass_volume = 5.0  # 1.0 = original level, <1 = quieter, >1 = louder
+bandpass_volume = 1.0  # 1.0 = original level, <1 = quieter, >1 = louder
 background_volume = 1.0   # controls loudness of the notched (background) noise
 
 # --- Apply Gaussian bandpass
