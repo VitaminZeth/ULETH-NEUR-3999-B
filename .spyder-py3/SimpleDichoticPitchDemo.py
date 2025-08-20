@@ -9,6 +9,16 @@ import numpy as np
 from scipy.signal.windows import gaussian
 import matplotlib.pyplot as plt
 import sounddevice as sd
+from pathlib import Path
+from scipy.io.wavfile import write as wavwrite
+
+# Tiny Helper
+def to_int16(x: np.ndarray) -> np.ndarray:
+    """Normalize to full scale and convert to 16-bit PCM."""
+    peak = np.max(np.abs(x)) if np.size(x) else 0.0
+    if peak == 0 or not np.isfinite(peak):
+        peak = 1.0
+    return (x / peak * 32767.0).astype(np.int16)
 
 # --- Parameters ---
 fs = 44100          # Sampling rate
@@ -115,6 +125,22 @@ mixedr = (delayed_bandpassed2 + advanced_notched2)
 # --- Combine into a stereo array (two columns)                                            
 mixed = np.column_stack((mixedl, mixedr))
 
+# === Exports: make folder and write WAVs (44100 Hz, 16-bit) ===
+outdir = Path(__file__).resolve().parent / "[to_analyze]"
+outdir.mkdir(parents=True, exist_ok=True)
+print(f"\nRendered WAVs will be saved to: {outdir}\n")
+
+# Originals and individual filters
+wavwrite(outdir / "00_original_noise.wav", fs, to_int16(noise))
+wavwrite(outdir / "10_bandpass_ch1.wav", fs, to_int16(bandpassed1))
+wavwrite(outdir / "11_bandpass_ch2_delayed.wav", fs, to_int16(delayed_bandpassed2))
+wavwrite(outdir / "20_notch_ch1.wav", fs, to_int16(notched1))
+wavwrite(outdir / "21_notch_ch2_advanced.wav", fs, to_int16(advanced_notched2))
+
+# Per-channel mixes
+wavwrite(outdir / "30_mixed_left.wav", fs, to_int16(mixedl))
+wavwrite(outdir / "31_mixed_right.wav", fs, to_int16(mixedr))
+
 # --- Optional playback ---
 
 # --- Play the band-passed
@@ -148,10 +174,14 @@ sd.wait()
 
 print("Playing Stimuli 1 Time...")
 
-# --- Play the notched and band-passedtogether (stereo)
 print("Playing Mixed L + R... 1")
-sd.play(mixed / np.max(np.abs(mixed)), fs)
+played_stereo = mixed / (np.max(np.abs(mixed)) if np.max(np.abs(mixed)) > 0 else 1.0)
+sd.play(played_stereo, fs)
 sd.wait()
+
+# Save exactly what was played to your ears
+wavwrite(outdir / "40_played_stereo_final.wav", fs, to_int16(played_stereo))
+print(f"Saved final played stereo render to: {outdir / '40_played_stereo_final.wav'}")
 
 # # --- Play the notched and band-passedtogether (stereo)
 # print("Playing Mixed L + R... 2")
