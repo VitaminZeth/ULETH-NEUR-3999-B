@@ -45,7 +45,7 @@ bandCentre2 = 500  # Hz
 
 # --- Desired filter bandwidth: 1/20th of center frequency ---
 bandwidth_hz = bandCentre1 / 20.0
-bin_width_hz = fs / n_samples
+bin_width_hz = fs / n_samples     # Hz per bin
 bandwidth_bins = bandwidth_hz / bin_width_hz
 
 # --- Convert to Gaussian std in bins ---
@@ -54,7 +54,6 @@ std = bandwidth_bins / 2.355
 # --- Create aligned Gaussian windows in the frequency (bin) domain ---
 
 M = len(fft_noise)                # number of RFFT bins (0..N/2)
-bin_width_hz = fs / n_samples     # Hz per bin
 
 def freq_to_bin(f_hz: float) -> int:
     """Clamp frequency to valid range and map to nearest RFFT bin index."""
@@ -88,14 +87,18 @@ print(f"BandCentre2: {bandCentre2} Hz -> bin {cbin2}, actual freq {cbin2*bin_wid
 from datetime import datetime
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-outdir = Path(__file__).resolve().parent / "[to_analyze]" / timestamp
-outdir.mkdir(parents=True, exist_ok=True)
-print(f"\nRendered WAVs will be saved to: {outdir}\n")
+
+# --- Plot folders ---
+plots_dir = outdir / "plots"
+windows_dir = plots_dir / "windows"
+spectra_dir = plots_dir / "spectra"
+for d in (plots_dir, windows_dir, spectra_dir):
+    d.mkdir(parents=True, exist_ok=True)
+print(f"Plots will be saved to: {plots_dir}")
 
 # =========================
 # Window visualizations (aligned) — high-res, full/zoom/log
 # =========================
-
 # Scale windows to [0,1] for overlays and consistent y-axis
 w_left_bp  = window1 / (np.max(window1) if np.max(window1) > 0 else 1.0)
 w_left_nt  = complementaryWindow1 / (np.max(complementaryWindow1) if np.max(complementaryWindow1) > 0 else 1.0)
@@ -114,7 +117,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(0, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02a_windows_overview_linear.png", dpi=300)
+plt.savefig(windows_dir / "02a_windows_overview_linear.png", dpi=300)
 plt.close()
 
 # --- Overview: both ears (log x) ---
@@ -129,7 +132,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(20, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02b_windows_overview_log.png", dpi=300)
+plt.savefig(windows_dir / "02b_windows_overview_log.png", dpi=300)
 plt.close()
 
 # --- Left ear: full (linear x) ---
@@ -142,7 +145,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(0, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02c_left_windows_linear.png", dpi=300)
+plt.savefig(windows_dir / "02c_left_windows_linear.png", dpi=300)
 plt.close()
 
 # --- Left ear: zoom around bandCentre1 ± 3×bandwidth_hz (linear x) ---
@@ -155,7 +158,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(bandCentre1 - 3*bandwidth_hz, bandCentre1 + 3*bandwidth_hz)
 plt.tight_layout()
-plt.savefig(outdir / "02d_left_windows_zoom.png", dpi=300)
+plt.savefig(windows_dir / "02d_left_windows_zoom.png", dpi=300)
 plt.close()
 
 # --- Left ear: full (log x) ---
@@ -168,7 +171,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(20, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02e_left_windows_log.png", dpi=300)
+plt.savefig(windows_dir / "02e_left_windows_log.png", dpi=300)
 plt.close()
 
 # --- Right ear: full (linear x) ---
@@ -181,7 +184,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(0, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02f_right_windows_linear.png", dpi=300)
+plt.savefig(windows_dir / "02f_right_windows_linear.png", dpi=300)
 plt.close()
 
 # --- Right ear: zoom around bandCentre2 ± 3×bandwidth_hz (linear x) ---
@@ -194,7 +197,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(bandCentre2 - 3*bandwidth_hz, bandCentre2 + 3*bandwidth_hz)
 plt.tight_layout()
-plt.savefig(outdir / "02g_right_windows_zoom.png", dpi=300)
+plt.savefig(windows_dir / "02g_right_windows_zoom.png", dpi=300)
 plt.close()
 
 # --- Right ear: full (log x) ---
@@ -207,7 +210,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(20, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02h_right_windows_log.png", dpi=300)
+plt.savefig(windows_dir / "02h_right_windows_log.png", dpi=300)
 plt.close()
 
 # --- Volume parameter for the bandpass components ---
@@ -376,8 +379,7 @@ print(f"Saved stereo FFT CSV to: {stereo_csv_path}")
 # =========================
 # Hi-res spectral visualizations (self-contained)
 # =========================
-
-# Make sure we've got left/right spectra and normalized magnitudes
+# Compute spectra and normalized magnitudes
 fft_left = np.fft.rfft(mixedl)
 fft_right = np.fft.rfft(mixedr)
 magL = np.abs(fft_left)
@@ -385,7 +387,7 @@ magR = np.abs(fft_right)
 left_mag_norm = magL / (np.max(magL) if np.max(magL) > 0 else 1.0)
 right_mag_norm = magR / (np.max(magR) if np.max(magR) > 0 else 1.0)
 
-# Scale windows to [0,1] for clear overlays
+# Recompute scaled windows (if needed earlier, these lines are harmless)
 w_left_bp = window1 / (np.max(window1) if np.max(window1) > 0 else 1.0)
 w_left_nt = complementaryWindow1 / (np.max(complementaryWindow1) if np.max(complementaryWindow1) > 0 else 1.0)
 w_right_bp = window2 / (np.max(window2) if np.max(window2) > 0 else 1.0)
@@ -403,7 +405,7 @@ plt.ylabel("Gain (scaled)")
 plt.legend(loc="best")
 plt.xlim(0, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "02_filters_overview_left_right.png", dpi=300)
+plt.savefig(spectra_dir / "02_filters_overview_left_right.png", dpi=300)
 plt.close()
 
 # ---- Left ear: full spectrum (linear x) ----
@@ -417,7 +419,7 @@ plt.ylabel("Normalized magnitude")
 plt.legend(loc="best")
 plt.xlim(0, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "03_left_spectrum_with_filters.png", dpi=300)
+plt.savefig(spectra_dir / "03_left_spectrum_with_filters.png", dpi=300)
 plt.close()
 
 # ---- Left ear: zoom around band centre ±3×bandwidth ----
@@ -431,7 +433,7 @@ plt.ylabel("Normalized magnitude")
 plt.legend(loc="best")
 plt.xlim(bandCentre1 - 3*bandwidth_hz, bandCentre1 + 3*bandwidth_hz)
 plt.tight_layout()
-plt.savefig(outdir / "03_left_spectrum_zoom.png", dpi=300)
+plt.savefig(spectra_dir / "03_left_spectrum_zoom.png", dpi=300)
 plt.close()
 
 # ---- Left ear: log-scale frequency ----
@@ -443,9 +445,9 @@ plt.semilogx(freqs, w_left_nt, label="Left Notch (scaled)", linestyle=":")
 plt.xlabel("Frequency (Hz, log scale)")
 plt.ylabel("Normalized magnitude")
 plt.legend(loc="best")
-plt.xlim(20, fs/2)  # avoid 0 on log scale
+plt.xlim(20, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "03_left_spectrum_log.png", dpi=300)
+plt.savefig(spectra_dir / "03_left_spectrum_log.png", dpi=300)
 plt.close()
 
 # ---- Right ear: full spectrum (linear x) ----
@@ -459,7 +461,7 @@ plt.ylabel("Normalized magnitude")
 plt.legend(loc="best")
 plt.xlim(0, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "04_right_spectrum_with_filters.png", dpi=300)
+plt.savefig(spectra_dir / "04_right_spectrum_with_filters.png", dpi=300)
 plt.close()
 
 # ---- Right ear: zoom around band centre ±3×bandwidth ----
@@ -473,7 +475,7 @@ plt.ylabel("Normalized magnitude")
 plt.legend(loc="best")
 plt.xlim(bandCentre2 - 3*bandwidth_hz, bandCentre2 + 3*bandwidth_hz)
 plt.tight_layout()
-plt.savefig(outdir / "04_right_spectrum_zoom.png", dpi=300)
+plt.savefig(spectra_dir / "04_right_spectrum_zoom.png", dpi=300)
 plt.close()
 
 # ---- Right ear: log-scale frequency ----
@@ -487,7 +489,7 @@ plt.ylabel("Normalized magnitude")
 plt.legend(loc="best")
 plt.xlim(20, fs/2)
 plt.tight_layout()
-plt.savefig(outdir / "04_right_spectrum_log.png", dpi=300)
+plt.savefig(spectra_dir / "04_right_spectrum_log.png", dpi=300)
 plt.close()
 
 # --- Optional playback ---
