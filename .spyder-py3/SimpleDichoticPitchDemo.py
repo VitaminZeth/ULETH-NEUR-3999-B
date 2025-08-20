@@ -88,7 +88,13 @@ from datetime import datetime
 
 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-# --- Plot folders ---
+# Create output folder (before any plots use it)
+base_outdir = Path(__file__).resolve().parent / "[to_analyze]"
+outdir = base_outdir / timestamp
+outdir.mkdir(parents=True, exist_ok=True)
+print(f"\nRendered WAVs will be saved to: {outdir}\n")
+
+# Plot subfolders
 plots_dir = outdir / "plots"
 windows_dir = plots_dir / "windows"
 spectra_dir = plots_dir / "spectra"
@@ -264,15 +270,6 @@ mixedr = (delayed_bandpassed2 + advanced_notched2)
                                             
 # --- Combine into a stereo array (two columns)                                            
 mixed = np.column_stack((mixedl, mixedr))
-
-from datetime import datetime
-
-# === Exports: make folder and write WAVs (44100 Hz, 16-bit) ===
-timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-outdir = Path(__file__).resolve().parent / "[to_analyze]" / timestamp
-outdir.mkdir(parents=True, exist_ok=True)
-
-print(f"\nRendered WAVs will be saved to: {outdir}\n")
 
 # ---- Write a parameters snapshot for this run ----
 # Captures key values from setup (lines ~23–57) and volumes (lines ~76–78)
