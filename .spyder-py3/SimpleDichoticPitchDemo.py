@@ -241,3 +241,11 @@ print(f"Saved final played stereo render to: {outdir / '40_played_stereo_final.w
 # NOTE TO SELF:
 #   Everythign worked out for the copy, but I need to fix it so that the playback of all the individual files works
 #   as well as the notch staying the same, and only moving the band-pass
+
+# Print out the audio files at each stage after 
+# Ask Georg Boenn About looking into the code
+# Make three melodies for the tests
+# play some control trials or practice trials
+# Sham trials with no melodies
+# Stack of puretones (Fund and its harmonics), pull out the harmonic in space and see if i can hear it
+# 
