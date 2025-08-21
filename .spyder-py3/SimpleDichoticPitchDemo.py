@@ -23,7 +23,7 @@ def to_int16(x: np.ndarray) -> np.ndarray:
 # --- Parameters ---
 fs = 44100          # Sampling rate
 # sd.default.samplerate = fs # Set default sd Sampling rate
-duration = 1.0      # seconds
+duration = 2.0      # seconds
 n_samples = int(fs * duration)
 
 # --- Delay parameter in milliseconds ---
@@ -44,9 +44,10 @@ bandCentre1 = 500  # Hz
 bandCentre2 = 500  # Hz
 
 # --- Desired filter bandwidth: 1/20th of center frequency ---
-bandwidth_hz = bandCentre1 / 20.0
+bandwidth_hz = bandCentre1 / 1.0 # Gaussian wider (smaller number) narrower (larger number)
 bin_width_hz = fs / n_samples     # Hz per bin
 bandwidth_bins = bandwidth_hz / bin_width_hz
+
 
 # --- Convert to Gaussian std in bins ---
 std = bandwidth_bins / 2.355
