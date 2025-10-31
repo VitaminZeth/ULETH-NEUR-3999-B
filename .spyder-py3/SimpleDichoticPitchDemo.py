@@ -540,3 +540,6 @@ print(f"Saved final played stereo render to: {outdir / '40_played_stereo_final.w
 # Sham trials with no melodies
 # Stack of puretones (Fund and its harmonics), pull out the harmonic in space and see if i can hear it
 # 
+# Fix the stimuli so it is working correctly.
+# (Working sample: Auditory Illusions (BBC, Article). {Trevor Cox})
+# See what the playback will look like when I conduct the test.
