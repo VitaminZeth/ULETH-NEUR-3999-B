@@ -1,0 +1,27 @@
+Run timestamp: 2025-10-31_13-41-36
+Output folder: D:\Fork\ULETH-NEUR-3999-B\.spyder-py3\[to_analyze]\2025-10-31_13-41-36
+
+[Signal & Timing]
+fs (Hz): 44100
+duration (s): 2.0
+n_samples: 88200
+delay_ms: 0.6
+delay_samples: 26
+
+[Frequency & Windows]
+bandCentre1 (Hz): 500
+bandCentre2 (Hz): 500
+bandwidth_hz (center/20): 500.0
+bin_width_hz: 0.5
+bandwidth_bins: 1000.0
+gaussian_std_bins (std): 424.6284501061571
+fft_length_M: 44101
+cbin1: 1000 (realized center 500.00 Hz)
+cbin2: 1000 (realized center 500.00 Hz)
+
+[Levels]
+bandpass_volume: 1.0
+background_volume: 1.0
+
+[Notes]
+This file logs the parameter values used to render the WAVs in this run.

@@ -20,6 +20,24 @@ def to_int16(x: np.ndarray) -> np.ndarray:
         peak = 1.0
     return (x / peak * 32767.0).astype(np.int16)
 
+# --- Helpers: simple low-pass and onset/offset ramps ---
+def lowpass_rect(x: np.ndarray, fs: float, cutoff_hz: float) -> np.ndarray:
+    X = np.fft.rfft(x)
+    f = np.fft.rfftfreq(len(x), 1/fs)
+    X[f > cutoff_hz] = 0
+    return np.fft.irfft(X)
+
+def apply_ramp(x: np.ndarray, fs: float, ramp_ms: float = 50.0) -> np.ndarray:
+    n = len(x)
+    r = int(round(ramp_ms * 1e-3 * fs))
+    if r <= 0 or r*2 > n:
+        return x
+    win = 0.5 - 0.5 * np.cos(np.pi * (np.arange(r) / r))
+    y = x.copy()
+    y[:r] *= win
+    y[-r:] *= win[::-1]
+    return y
+
 # --- Parameters ---
 fs = 44100          # Sampling rate
 # sd.default.samplerate = fs # Set default sd Sampling rate
