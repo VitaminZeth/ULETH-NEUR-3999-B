@@ -20,28 +20,10 @@ def to_int16(x: np.ndarray) -> np.ndarray:
         peak = 1.0
     return (x / peak * 32767.0).astype(np.int16)
 
-# --- Helpers: simple low-pass and onset/offset ramps ---
-def lowpass_rect(x: np.ndarray, fs: float, cutoff_hz: float) -> np.ndarray:
-    X = np.fft.rfft(x)
-    f = np.fft.rfftfreq(len(x), 1/fs)
-    X[f > cutoff_hz] = 0
-    return np.fft.irfft(X)
-
-def apply_ramp(x: np.ndarray, fs: float, ramp_ms: float = 50.0) -> np.ndarray:
-    n = len(x)
-    r = int(round(ramp_ms * 1e-3 * fs))
-    if r <= 0 or r*2 > n:
-        return x
-    win = 0.5 - 0.5 * np.cos(np.pi * (np.arange(r) / r))
-    y = x.copy()
-    y[:r] *= win
-    y[-r:] *= win[::-1]
-    return y
-
 # --- Parameters ---
 fs = 44100          # Sampling rate
 # sd.default.samplerate = fs # Set default sd Sampling rate
-duration = 2.0      # seconds
+duration = 1.0      # seconds
 n_samples = int(fs * duration)
 
 # --- Delay parameter in milliseconds ---
@@ -49,7 +31,6 @@ delay_ms = 0.6  # e.g. 2 milliseconds
 
 # Equation to convert ms to samples
 delay_samples = int(round((delay_ms / 1000.0) * fs))
-tau_s = delay_ms / 1000.0  # fractional delay in seconds
 
 # --- Generate broadband noise ---
 noise = np.random.normal(0, 1, n_samples)
@@ -63,10 +44,9 @@ bandCentre1 = 500  # Hz
 bandCentre2 = 500  # Hz
 
 # --- Desired filter bandwidth: 1/20th of center frequency ---
-bandwidth_hz = bandCentre1 / 1.0 # Gaussian wider (smaller number) narrower (larger number)
+bandwidth_hz = bandCentre1 / 20.0
 bin_width_hz = fs / n_samples     # Hz per bin
 bandwidth_bins = bandwidth_hz / bin_width_hz
-
 
 # --- Convert to Gaussian std in bins ---
 std = bandwidth_bins / 2.355
@@ -559,6 +539,3 @@ print(f"Saved final played stereo render to: {outdir / '40_played_stereo_final.w
 # Sham trials with no melodies
 # Stack of puretones (Fund and its harmonics), pull out the harmonic in space and see if i can hear it
 # 
-# Fix the stimuli so it is working correctly.
-# (Working sample: Auditory Illusions (BBC, Article). {Trevor Cox})
-# See what the playback will look like when I conduct the test.
