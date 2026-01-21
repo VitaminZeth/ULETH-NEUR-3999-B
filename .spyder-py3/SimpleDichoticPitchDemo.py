@@ -42,8 +42,9 @@ noise = rng1.normal(0, 1, n_samples)
 # Second, fully independent broadband noise (different seed)
 noise2 = rng2.normal(0, 1, n_samples)
 
-# --- FFT of the noise ---
+# --- FFT of the noise files ---
 fft_noise = np.fft.rfft(noise)
+fft_noise2 = np.fft.rfft(noise2)
 freqs = np.fft.rfftfreq(n_samples, 1/fs)
 
 # --- Assigning the centre frequencies ---
@@ -235,7 +236,7 @@ fft_bandpassed1 = fft_noise * window1 # Freq Domain
 bandpassed1 = np.fft.irfft(fft_bandpassed1) * bandpass_volume #plot the points
 
 # --- Apply a shifted Gaussian bandpass to a copy
-fft_bandpassed2 = fft_noise * window2 # Freq Domain
+fft_bandpassed2 = fft_noise2 * window2 # Freq Domain
 bandpassed2 = np.fft.irfft(fft_bandpassed2) * bandpass_volume #plot the points
 
 # --- Apply a sample delay to the shifted Gaussian bandpassed copy
@@ -260,7 +261,7 @@ fft_notched1 = fft_noise * complementaryWindow1 # Freq Domain
 notched1 = np.fft.irfft(fft_notched1) * background_volume #plot the points
 
 # --- Design complementary shifted notch (1 - Gaussian) ---
-fft_notched2 = fft_noise * complementaryWindow2 # Freq Domain
+fft_notched2 = fft_noise2 * complementaryWindow2 # Freq Domain
 notched2 = np.fft.irfft(fft_notched2) * background_volume #plot the points
 
 # Shift by x samples to the right (delay) 
@@ -316,11 +317,14 @@ with open(outdir / "00_run_parameters.txt", "w", encoding="utf-8") as f:
 print(f"Wrote parameters snapshot to: {outdir / '00_run_parameters.txt'}")
 
 # Originals and individual filters
+# Two independent broadband noise files (different seeds)
 wavwrite(outdir / "00_original_noise.wav", fs, to_int16(noise))
+wavwrite(outdir / "01_original_noise_independent.wav", fs, to_int16(noise2))
 wavwrite(outdir / "10_bandpass_ch1.wav", fs, to_int16(bandpassed1))
 wavwrite(outdir / "11_bandpass_ch2_delayed.wav", fs, to_int16(delayed_bandpassed2))
 wavwrite(outdir / "20_notch_ch1.wav", fs, to_int16(notched1))
 wavwrite(outdir / "21_notch_ch2_advanced.wav", fs, to_int16(advanced_notched2))
+
 
 # Per-channel mixes
 wavwrite(outdir / "30_mixed_left.wav", fs, to_int16(mixedl))
