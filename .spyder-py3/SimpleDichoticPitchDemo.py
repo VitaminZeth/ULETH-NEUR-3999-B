@@ -32,8 +32,15 @@ delay_ms = 0.6  # e.g. 2 milliseconds
 # Equation to convert ms to samples
 delay_samples = int(round((delay_ms / 1000.0) * fs))
 
-# --- Generate broadband noise ---
-noise = np.random.normal(0, 1, n_samples)
+# --- Generate broadband noise (two independent seeds) ---
+rng1 = np.random.default_rng(123456)   # seed for broadband noise #1
+rng2 = np.random.default_rng(7891011)  # different seed for broadband noise #2
+
+# Noise used for the dichotic-pitch processing pipeline
+noise = rng1.normal(0, 1, n_samples)
+
+# Second, fully independent broadband noise (different seed)
+noise2 = rng2.normal(0, 1, n_samples)
 
 # --- FFT of the noise ---
 fft_noise = np.fft.rfft(noise)
