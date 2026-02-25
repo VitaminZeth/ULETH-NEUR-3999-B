@@ -1,0 +1,13 @@
+ear,freq_hz,threshold_amp,skipped,reason
+L,250,0.25,True,no need
+L,500,0.25,True,no need
+L,1000,0.25,True,no need
+L,2000,0.25,True,no need
+L,4000,0.25,True,no need
+L,8000,0.25,True,no need
+R,250,0.25,True,no need
+R,500,0.25,True,no need
+R,1000,0.25,True,no need
+R,2000,0.25,True,no need
+R,4000,0.25,True,no need
+R,8000,0.25,True,no need
