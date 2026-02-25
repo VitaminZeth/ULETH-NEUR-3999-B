@@ -1,0 +1,17 @@
+5.7881 	INFO 	Loaded monitor calibration from ['2026_01_21 02:15']
+5.8180 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1920, 1080]. Using actual size
+6.1601 	INFO 	Using renderer 'AMD Radeon RX 6950 XT' for graphics
+6.1601 	INFO 	OpenGL version supported by driver is 4..
+6.1841 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x000001F8B2C6D1E0>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x000001F8B2C6D240>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([0, 0, 0]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x000001F8A6648E50>, multiSample=False, name='window1', numSamples=2, pos=[np.float64(0.0), np.float64(0.0)], screen=0, size=array([1920, 1080]), stencilBits=0, stereo=False, title='PsychoPy', units='height', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+6.1842 	EXP 	window1: backgroundImage = ''
+6.1842 	EXP 	window1: backgroundFit = 'none'
+6.4959 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+6.4960 	EXP 	window1: recordFrameIntervals = False
+6.6781 	EXP 	window1: recordFrameIntervals = True
+6.8616 	EXP 	Screen (0) actual frame rate measured at 59.99Hz
+6.8616 	EXP 	window1: recordFrameIntervals = False
+7.1533 	INFO 	keyboard.Keyboard is using ptb backend.
+7.1534 	EXP 	20260225_DichoticPitchProject: status = STARTED
+7.1661 	INFO 	saved data to D:\[Fork]\ULETH-NEUR-3999-B\PsychoPy Projects\dichotic_pitch_project_V5\data\494285_20260225_DichoticPitchProject_2026-02-25_06h09.23.008.psydat
+7.1664 	INFO 	saved data to 'D:\\[Fork]\\ULETH-NEUR-3999-B\\PsychoPy Projects\\dichotic_pitch_project_V5\\data\\494285_20260225_DichoticPitchProject_2026-02-25_06h09.23.008.csv'
+7.1787 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.

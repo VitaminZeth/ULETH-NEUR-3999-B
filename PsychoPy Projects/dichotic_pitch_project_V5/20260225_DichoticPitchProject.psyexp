@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" ?>
+<PsychoPy2experiment encoding="utf-8" version="2026.1.0">
+  <Settings>
+    <Param val="ptb" valType="str" updates="None" name="Audio lib"/>
+    <Param val="" valType="str" updates="None" name="Completed URL"/>
+    <Param val="auto" valType="str" updates="None" name="Data file delimiter"/>
+    <Param val="u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])" valType="code" updates="None" name="Data filename"/>
+    <Param val="True" valType="bool" updates="None" name="Enable Escape"/>
+    <Param val="Thank you for your patience." valType="str" updates="None" name="End Message"/>
+    <Param val="{'participant':'f&quot;{randint(0, 999999):06.0f}&quot;', 'session':'001'}" valType="code" updates="None" name="Experiment info"/>
+    <Param val="True" valType="bool" updates="None" name="Force stereo"/>
+    <Param val="True" valType="bool" updates="None" name="Full-screen window"/>
+    <Param val="" valType="str" updates="None" name="HTML path"/>
+    <Param val="" valType="str" updates="None" name="Incomplete URL"/>
+    <Param val="testMonitor" valType="str" updates="None" name="Monitor"/>
+    <Param val="[]" valType="list" updates="None" name="Resources"/>
+    <Param val="False" valType="bool" updates="None" name="Save csv file"/>
+    <Param val="False" valType="bool" updates="None" name="Save excel file"/>
+    <Param val="False" valType="bool" updates="None" name="Save hdf5 file"/>
+    <Param val="True" valType="bool" updates="None" name="Save log file"/>
+    <Param val="True" valType="bool" updates="None" name="Save psydat file"/>
+    <Param val="True" valType="bool" updates="None" name="Save wide csv file"/>
+    <Param val="1" valType="num" updates="None" name="Screen"/>
+    <Param val="True" valType="bool" updates="None" name="Show info dlg"/>
+    <Param val="False" valType="bool" updates="None" name="Show mouse"/>
+    <Param val="height" valType="str" updates="None" name="Units"/>
+    <Param val="" valType="str" updates="None" name="Use version"/>
+    <Param val="(1024, 768)" valType="list" updates="None" name="Window size (pixels)"/>
+    <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+    <Param val="" valType="str" updates="None" name="backgroundImg"/>
+    <Param val="avg" valType="str" updates="None" name="blendMode"/>
+    <Param val="float" valType="str" updates="None" name="clockFormat"/>
+    <Param val="{'thisRow.t': 'priority.CRITICAL', 'expName': 'priority.LOW'}" valType="dict" updates="None" name="colPriority"/>
+    <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+    <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+    <Param val="warning" valType="code" updates="None" name="consoleLoggingLevel"/>
+    <Param val="default" valType="str" updates="None" name="ecSampleRate"/>
+    <Param val="100.1.1.1" valType="str" updates="None" name="elAddress"/>
+    <Param val="FILTER_LEVEL_2" valType="str" updates="None" name="elDataFiltering"/>
+    <Param val="FILTER_LEVEL_OFF" valType="str" updates="None" name="elLiveFiltering"/>
+    <Param val="EYELINK 1000 DESKTOP" valType="str" updates="None" name="elModel"/>
+    <Param val="ELLIPSE_FIT" valType="str" updates="None" name="elPupilAlgorithm"/>
+    <Param val="PUPIL_AREA" valType="str" updates="None" name="elPupilMeasure"/>
+    <Param val="1000" valType="num" updates="None" name="elSampleRate"/>
+    <Param val="False" valType="bool" updates="None" name="elSimMode"/>
+    <Param val="RIGHT_EYE" valType="str" updates="None" name="elTrackEyes"/>
+    <Param val="PUPIL_CR_TRACKING" valType="str" updates="None" name="elTrackingMode"/>
+    <Param val="20260225_DichoticPitchProject" valType="str" updates="None" name="expName"/>
+    <Param val="" valType="str" updates="None" name="expVersion"/>
+    <Param val="on Sync" valType="str" updates="None" name="exportHTML"/>
+    <Param val="None" valType="str" updates="None" name="eyetracker"/>
+    <Param val="" valType="code" updates="None" name="frameRate"/>
+    <Param val="Attempting to measure frame rate of screen, please wait..." valType="str" updates="None" name="frameRateMsg"/>
+    <Param val="127.0.0.1" valType="str" updates="None" name="gpAddress"/>
+    <Param val="4242" valType="num" updates="None" name="gpPort"/>
+    <Param val="PsychToolbox" valType="str" updates="None" name="keyboardBackend"/>
+    <Param val="info" valType="code" updates="None" name="logging level"/>
+    <Param val="True" valType="bool" updates="None" name="measureFrameRate"/>
+    <Param val="MIDDLE_BUTTON" valType="list" updates="None" name="mgBlink"/>
+    <Param val="CONTINUOUS" valType="str" updates="None" name="mgMove"/>
+    <Param val="0.5" valType="num" updates="None" name="mgSaccade"/>
+    <Param val="neon.local" valType="str" updates="None" name="plCompanionAddress"/>
+    <Param val="8080" valType="num" updates="None" name="plCompanionPort"/>
+    <Param val="0.6" valType="num" updates="None" name="plConfidenceThreshold"/>
+    <Param val="" valType="str" updates="None" name="plPupilCaptureRecordingLocation"/>
+    <Param val="127.0.0.1" valType="str" updates="None" name="plPupilRemoteAddress"/>
+    <Param val="50020" valType="num" updates="None" name="plPupilRemotePort"/>
+    <Param val="1000" valType="num" updates="None" name="plPupilRemoteTimeoutMs"/>
+    <Param val="False" valType="bool" updates="None" name="plPupillometryOnly"/>
+    <Param val="psychopy_iohub_surface" valType="str" updates="None" name="plSurfaceName"/>
+    <Param val="0" valType="code" updates="None" name="runMode"/>
+    <Param val="False" valType="bool" updates="None" name="rush"/>
+    <Param val="time" valType="str" updates="None" name="sortColumns"/>
+    <Param val="" valType="str" updates="None" name="tbLicenseFile"/>
+    <Param val="" valType="str" updates="None" name="tbModel"/>
+    <Param val="60" valType="num" updates="None" name="tbSampleRate"/>
+    <Param val="" valType="str" updates="None" name="tbSerialNo"/>
+    <Param val="pyglet" valType="str" updates="None" name="winBackend"/>
+  </Settings>
+  <Routines>
+    <Routine name="PHASE_A_FileAcquisition">
+      <RoutineSettingsComponent name="PHASE_A_FileAcquisition" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="PHASE_A_FileAcquisition" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <TextComponent name="text" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Arial" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="text" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Use up/down to set volume. Press space to continue." valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="keyList" plugin="None">
+        <Param val="['up','down','left','right','space','escape']" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="keyList" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <CodeComponent name="acq_code" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="# --- Phase A (AcquireFiles) : Builder Code Component -&gt; Begin Experiment ---&amp;#10;# This block sets up labeled folders + per-WAV FFT CSV export + stimulus feature logs.&amp;#10;# You will use the helper function save_wav_and_fft(...) inside your stimulus-generation loops.&amp;#10;&amp;#10;import os, json, time, csv&amp;#10;import numpy as np&amp;#10;from psychopy import sound&amp;#10;import soundfile as sf&amp;#10;&amp;#10;# =========================&amp;#10;# Folder structure per run&amp;#10;# =========================&amp;#10;root_out = os.path.join(thisExp.runtimePath, &quot;OUTPUT&quot;)&amp;#10;os.makedirs(root_out, exist_ok=True)&amp;#10;&amp;#10;run_id = time.strftime(&quot;%Y%m%d_%H%M%S&quot;)&amp;#10;run_dir = os.path.join(root_out, f&quot;RUN_{run_id}&quot;)&amp;#10;os.makedirs(run_dir, exist_ok=True)&amp;#10;&amp;#10;# Phase A folders&amp;#10;phaseA_dir  = os.path.join(run_dir, &quot;PHASEA_FileAcquisition&quot;)&amp;#10;phaseA_wav  = os.path.join(phaseA_dir, &quot;WAV&quot;)&amp;#10;phaseA_fft  = os.path.join(phaseA_dir, &quot;FFT_CSV&quot;)&amp;#10;phaseA_logs = os.path.join(phaseA_dir, &quot;LOGS&quot;)&amp;#10;&amp;#10;for p in (phaseA_dir, phaseA_wav, phaseA_fft, phaseA_logs):&amp;#10;    os.makedirs(p, exist_ok=True)&amp;#10;&amp;#10;# PsychoPy audio settings&amp;#10;fs = 48000&amp;#10;base_dur = 0.75&amp;#10;&amp;#10;# Logs / manifests&amp;#10;manifest_path      = os.path.join(phaseA_logs, &quot;manifest.json&quot;)&amp;#10;trial_list_path    = os.path.join(phaseA_logs, &quot;trial_list.csv&quot;)&amp;#10;mel_list_path      = os.path.join(phaseA_logs, &quot;melody_list.csv&quot;)&amp;#10;stim_features_csv  = os.path.join(phaseA_logs, &quot;stim_features.csv&quot;)&amp;#10;&amp;#10;# Random generator (random each run unless you set a seed)&amp;#10;rng = np.random.default_rng()&amp;#10;&amp;#10;# In-memory registry for everything generated this run&amp;#10;items = []       # shams + stimuli&amp;#10;mel_items = []   # melodies&amp;#10;&amp;#10;# =========================&amp;#10;# Helper functions&amp;#10;# =========================&amp;#10;def normalize(x, peak=0.98):&amp;#10;    m = float(np.max(np.abs(x)))&amp;#10;    if m &lt; 1e-12:&amp;#10;        return x&amp;#10;    return (x / m) * peak&amp;#10;&amp;#10;def compute_fft_csv(stereo, fs, out_csv_path, center_freq_hz=None, stim_id=None, stim_type=None):&amp;#10;    &quot;&quot;&quot;&amp;#10;    Export FFT CSV for stereo signal:&amp;#10;    Frequency_Hz, Mag_L_dBFS, Mag_R_dBFS, Phase_L_rad, Phase_R_rad&amp;#10;    &quot;&quot;&quot;&amp;#10;    stereo = np.asarray(stereo)&amp;#10;    if stereo.ndim != 2 or stereo.shape[1] != 2:&amp;#10;        raise ValueError(&quot;compute_fft_csv expects stereo array of shape (nSamples, 2)&quot;)&amp;#10;&amp;#10;    xL = stereo[:, 0].astype(np.float64)&amp;#10;    xR = stereo[:, 1].astype(np.float64)&amp;#10;&amp;#10;    XL = np.fft.rfft(xL)&amp;#10;    XR = np.fft.rfft(xR)&amp;#10;    freqs = np.fft.rfftfreq(len(xL), d=1.0/fs)&amp;#10;&amp;#10;    eps = 1e-12&amp;#10;    # Rough dBFS-ish scaling (good for comparisons; not a calibrated SPL)&amp;#10;    magL = 20.0 * np.log10((np.abs(XL) / (len(xL)/2.0)) + eps)&amp;#10;    magR = 20.0 * np.log10((np.abs(XR) / (len(xR)/2.0)) + eps)&amp;#10;&amp;#10;    phL = np.angle(XL)&amp;#10;    phR = np.angle(XR)&amp;#10;&amp;#10;    with open(out_csv_path, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;        w = csv.writer(f)&amp;#10;        # metadata rows (easy to parse later)&amp;#10;        w.writerow([&quot;meta&quot;, &quot;run_id&quot;, run_id])&amp;#10;        if stim_id is not None:&amp;#10;            w.writerow([&quot;meta&quot;, &quot;stim_id&quot;, stim_id])&amp;#10;        if stim_type is not None:&amp;#10;            w.writerow([&quot;meta&quot;, &quot;stim_type&quot;, stim_type])&amp;#10;        w.writerow([&quot;meta&quot;, &quot;fs&quot;, fs])&amp;#10;        if center_freq_hz is not None:&amp;#10;            w.writerow([&quot;meta&quot;, &quot;center_freq_hz&quot;, center_freq_hz])&amp;#10;        w.writerow([&quot;Frequency_Hz&quot;, &quot;Mag_L_dBFS&quot;, &quot;Mag_R_dBFS&quot;, &quot;Phase_L_rad&quot;, &quot;Phase_R_rad&quot;])&amp;#10;        for i in range(len(freqs)):&amp;#10;            w.writerow([float(freqs[i]), float(magL[i]), float(magR[i]), float(phL[i]), float(phR[i])])&amp;#10;&amp;#10;def save_wav_and_fft(stereo, stim_id, stim_type, params, center_freq_hz=None, is_melody=False):&amp;#10;    &quot;&quot;&quot;&amp;#10;    Saves:&amp;#10;      - stereo WAV into PHASEA/WAV&amp;#10;      - FFT CSV into PHASEA/FFT_CSV&amp;#10;    Registers:&amp;#10;      - items / mel_items list entries with paths + metadata&amp;#10;    &quot;&quot;&quot;&amp;#10;    stereo = np.asarray(stereo, dtype=np.float32)&amp;#10;    if stereo.ndim != 2 or stereo.shape[1] != 2:&amp;#10;        raise ValueError(&quot;save_wav_and_fft expects stereo array of shape (nSamples, 2)&quot;)&amp;#10;&amp;#10;    # safety normalize + clip&amp;#10;    stereo = normalize(stereo)&amp;#10;    stereo = np.clip(stereo, -1.0, 1.0)&amp;#10;&amp;#10;    wav_name = f&quot;{run_id}_{stim_id}.wav&quot;&amp;#10;    wav_path = os.path.join(phaseA_wav, wav_name)&amp;#10;    sf.write(wav_path, stereo, fs, subtype=&quot;PCM_16&quot;)&amp;#10;&amp;#10;    fft_name = f&quot;{run_id}_{stim_id}_FFT.csv&quot;&amp;#10;    fft_path = os.path.join(phaseA_fft, fft_name)&amp;#10;    compute_fft_csv(&amp;#10;        stereo, fs, fft_path,&amp;#10;        center_freq_hz=center_freq_hz,&amp;#10;        stim_id=stim_id,&amp;#10;        stim_type=stim_type&amp;#10;    )&amp;#10;&amp;#10;    entry = {&amp;#10;        &quot;run_id&quot;: run_id,&amp;#10;        &quot;stimId&quot;: stim_id,&amp;#10;        &quot;stimType&quot;: stim_type,         # &quot;stim&quot; / &quot;sham&quot; / &quot;melody&quot;&amp;#10;        &quot;centerFreqHz&quot;: center_freq_hz,&amp;#10;        &quot;wavPath&quot;: wav_path,&amp;#10;        &quot;fftCsvPath&quot;: fft_path,&amp;#10;        &quot;params&quot;: params&amp;#10;    }&amp;#10;    if is_melody:&amp;#10;        mel_items.append(entry)&amp;#10;    else:&amp;#10;        items.append(entry)&amp;#10;&amp;#10;    return entry&amp;#10;&amp;#10;def write_phaseA_logs():&amp;#10;    &quot;&quot;&quot;&amp;#10;    Call this AFTER you finish generating all shams/stims/melodies.&amp;#10;    Writes:&amp;#10;      - manifest.json (full detail)&amp;#10;      - stim_features.csv (easy spreadsheet view)&amp;#10;      - trial_list.csv and melody_list.csv for Builder loops&amp;#10;    &quot;&quot;&quot;&amp;#10;    # full manifest&amp;#10;    manifest = {&quot;run_id&quot;: run_id, &quot;fs&quot;: fs, &quot;items&quot;: items, &quot;melodies&quot;: mel_items}&amp;#10;    with open(manifest_path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;        json.dump(manifest, f, indent=2)&amp;#10;&amp;#10;    # simple features CSV&amp;#10;    with open(stim_features_csv, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;        w = csv.writer(f)&amp;#10;        w.writerow([&quot;run_id&quot;,&quot;stimId&quot;,&quot;stimType&quot;,&quot;centerFreqHz&quot;,&quot;wavPath&quot;,&quot;fftCsvPath&quot;])&amp;#10;        for it in items + mel_items:&amp;#10;            w.writerow([it[&quot;run_id&quot;], it[&quot;stimId&quot;], it[&quot;stimType&quot;], it[&quot;centerFreqHz&quot;], it[&quot;wavPath&quot;], it[&quot;fftCsvPath&quot;]])&amp;#10;&amp;#10;    # Builder trial lists (CSV headers must match your loop variable names)&amp;#10;    with open(trial_list_path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;        f.write(&quot;stimFile,stimType,stimId,centerFreqHz,fftCsvPath\n&quot;)&amp;#10;        for it in items:&amp;#10;            f.write(f&quot;{it['wavPath']},{it['stimType']},{it['stimId']},{it['centerFreqHz']},{it['fftCsvPath']}\n&quot;)&amp;#10;&amp;#10;    with open(mel_list_path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;        f.write(&quot;stimFile,stimType,stimId,centerFreqHz,fftCsvPath\n&quot;)&amp;#10;        for it in mel_items:&amp;#10;            f.write(f&quot;{it['wavPath']},{it['stimType']},{it['stimId']},{it['centerFreqHz']},{it['fftCsvPath']}\n&quot;)&amp;#10;&amp;#10;    # make paths available to later Builder loops/routines&amp;#10;    expInfo[&quot;run_id&quot;] = run_id&amp;#10;    expInfo[&quot;phaseA_dir&quot;] = phaseA_dir&amp;#10;    expInfo[&quot;trial_list_path&quot;] = trial_list_path&amp;#10;    expInfo[&quot;mel_list_path&quot;] = mel_list_path&amp;#10;    expInfo[&quot;manifest_path&quot;] = manifest_path&amp;#10;    expInfo[&quot;stim_features_csv&quot;] = stim_features_csv&amp;#10;&amp;#10;# -------------------------&amp;#10;# HOW TO USE IN YOUR LOOPS:&amp;#10;# -------------------------&amp;#10;# Wherever you currently do:&amp;#10;#   sf.write(fpath, y, fs, subtype=&quot;PCM_16&quot;)&amp;#10;# Replace it with:&amp;#10;#   save_wav_and_fft(&amp;#10;#       stereo=y,&amp;#10;#       stim_id=params[&quot;id&quot;],&amp;#10;#       stim_type=params[&quot;kind&quot;],           # &quot;sham&quot; or &quot;stim&quot; or &quot;melody&quot;&amp;#10;#       params=params,&amp;#10;#       center_freq_hz=params.get(&quot;carrier_hz&quot;, None),&amp;#10;#       is_melody=(params[&quot;kind&quot;] == &quot;melody&quot;)&amp;#10;#   )&amp;#10;#&amp;#10;# After generating all files, call once:&amp;#10;#   write_phaseA_logs()" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="def normalize(x, peak=0.98):&amp;#10;    m = np.max(np.abs(x))&amp;#10;    if m &lt; 1e-9:&amp;#10;        return x&amp;#10;    return (x / m) * peak&amp;#10;&amp;#10;def make_dichotic_stim(params, fs):&amp;#10;    &quot;&quot;&quot;&amp;#10;    Replace this with YOUR dichotic pitch generator.&amp;#10;    Must return stereo float32 array shape (nSamples, 2) in [-1, 1].&amp;#10;    &quot;&quot;&quot;&amp;#10;    dur = params[&quot;dur&quot;]&amp;#10;    n = int(fs * dur)&amp;#10;    t = np.arange(n) / fs&amp;#10;&amp;#10;    # Example placeholder: noise with a subtle phase manipulation&amp;#10;    noiseL = rng.normal(0, 1, n)&amp;#10;    noiseR = rng.normal(0, 1, n)&amp;#10;&amp;#10;    # Fake &quot;illusory pitch band&quot; control param&amp;#10;    f = params[&quot;carrier_hz&quot;]&amp;#10;    tone = np.sin(2*np.pi*f*t)&amp;#10;&amp;#10;    if params[&quot;is_sham&quot;]:&amp;#10;        # sham: no added structure&amp;#10;        yL = noiseL&amp;#10;        yR = noiseR&amp;#10;    else:&amp;#10;        # “stim”: add correlated structure differently per ear&amp;#10;        yL = noiseL + 0.15 * tone&amp;#10;        yR = noiseR + 0.15 * np.sin(2*np.pi*f*t + params[&quot;phase_offset_rad&quot;])&amp;#10;&amp;#10;    y = np.column_stack([yL, yR]).astype(np.float32)&amp;#10;    y = normalize(y)&amp;#10;    return y&amp;#10;&amp;#10;def make_melody(params, fs):&amp;#10;    &quot;&quot;&quot;&amp;#10;    6 pitches in sequence. Returns stereo float32 array.&amp;#10;    &quot;&quot;&quot;&amp;#10;    pitch_seq = params[&quot;pitch_seq_hz&quot;]  # length 6&amp;#10;    note_dur = params[&quot;note_dur&quot;]&amp;#10;    gap = params[&quot;gap&quot;]&amp;#10;    chunks = []&amp;#10;    for f in pitch_seq:&amp;#10;        n = int(fs * note_dur)&amp;#10;        t = np.arange(n) / fs&amp;#10;        # Use the same dichotic “style” but change pitch each note:&amp;#10;        p = {&amp;#10;            &quot;dur&quot;: note_dur,&amp;#10;            &quot;carrier_hz&quot;: float(f),&amp;#10;            &quot;phase_offset_rad&quot;: params[&quot;phase_offset_rad&quot;],&amp;#10;            &quot;is_sham&quot;: False&amp;#10;        }&amp;#10;        note = make_dichotic_stim(p, fs)&amp;#10;        chunks.append(note)&amp;#10;        if gap &gt; 0:&amp;#10;            chunks.append(np.zeros((int(fs*gap), 2), dtype=np.float32))&amp;#10;    y = np.vstack(chunks)&amp;#10;    y = normalize(y)&amp;#10;    return y&amp;#10;&amp;#10;# --- Generate 3 shams + 5 stimuli ---&amp;#10;items = []&amp;#10;ts = time.strftime(&quot;%Y%m%d_%H%M%S&quot;)&amp;#10;&amp;#10;# 3 shams&amp;#10;for i in range(3):&amp;#10;    params = {&amp;#10;        &quot;kind&quot;: &quot;sham&quot;,&amp;#10;        &quot;dur&quot;: base_dur,&amp;#10;        &quot;carrier_hz&quot;: float(rng.choice([200, 250, 315, 400, 500, 630])),&amp;#10;        &quot;phase_offset_rad&quot;: 0.0,&amp;#10;        &quot;is_sham&quot;: True,&amp;#10;        &quot;id&quot;: f&quot;sham_{i+1}&quot;&amp;#10;    }&amp;#10;    y = make_dichotic_stim(params, fs)&amp;#10;    fname = f&quot;{ts}_{params['id']}.wav&quot;&amp;#10;    fpath = os.path.join(out_dir, fname)&amp;#10;    sf.write(fpath, y, fs, subtype=&quot;PCM_16&quot;)&amp;#10;    items.append({&quot;file&quot;: fpath, &quot;type&quot;: &quot;sham&quot;, &quot;id&quot;: params[&quot;id&quot;], &quot;params&quot;: params})&amp;#10;&amp;#10;# 5 stimuli&amp;#10;for i in range(5):&amp;#10;    params = {&amp;#10;        &quot;kind&quot;: &quot;stim&quot;,&amp;#10;        &quot;dur&quot;: base_dur,&amp;#10;        &quot;carrier_hz&quot;: float(rng.choice([200, 250, 315, 400, 500, 630])),&amp;#10;        &quot;phase_offset_rad&quot;: float(rng.uniform(-np.pi, np.pi)),&amp;#10;        &quot;is_sham&quot;: False,&amp;#10;        &quot;id&quot;: f&quot;stim_{i+1}&quot;&amp;#10;    }&amp;#10;    y = make_dichotic_stim(params, fs)&amp;#10;    fname = f&quot;{ts}_{params['id']}.wav&quot;&amp;#10;    fpath = os.path.join(out_dir, fname)&amp;#10;    sf.write(fpath, y, fs, subtype=&quot;PCM_16&quot;)&amp;#10;    items.append({&quot;file&quot;: fpath, &quot;type&quot;: &quot;stim&quot;, &quot;id&quot;: params[&quot;id&quot;], &quot;params&quot;: params})&amp;#10;&amp;#10;# --- Generate 2 melodic files (each 6 pitches) ---&amp;#10;mel_items = []&amp;#10;for i in range(2):&amp;#10;    pitch_pool = np.array([220, 247, 277, 311, 349, 392, 440, 494], dtype=float)&amp;#10;    pitch_seq = rng.choice(pitch_pool, size=6, replace=True).tolist()&amp;#10;    params = {&amp;#10;        &quot;kind&quot;: &quot;melody&quot;,&amp;#10;        &quot;pitch_seq_hz&quot;: pitch_seq,&amp;#10;        &quot;note_dur&quot;: 0.35,&amp;#10;        &quot;gap&quot;: 0.05,&amp;#10;        &quot;phase_offset_rad&quot;: float(rng.uniform(-np.pi, np.pi)),&amp;#10;        &quot;id&quot;: f&quot;melody_{i+1}&quot;&amp;#10;    }&amp;#10;    y = make_melody(params, fs)&amp;#10;    fname = f&quot;{ts}_{params['id']}.wav&quot;&amp;#10;    fpath = os.path.join(out_dir, fname)&amp;#10;    sf.write(fpath, y, fs, subtype=&quot;PCM_16&quot;)&amp;#10;    mel_items.append({&quot;file&quot;: fpath, &quot;type&quot;: &quot;melody&quot;, &quot;id&quot;: params[&quot;id&quot;], &quot;params&quot;: params})&amp;#10;&amp;#10;# Save manifest (for regeneration/compensation)&amp;#10;manifest = {&quot;fs&quot;: fs, &quot;items&quot;: items, &quot;melodies&quot;: mel_items, &quot;timestamp&quot;: ts}&amp;#10;with open(manifest_path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;    json.dump(manifest, f, indent=2)&amp;#10;&amp;#10;# Write CSV trial lists Builder can read (simple columns)&amp;#10;with open(trial_list_path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;    f.write(&quot;stimFile,stimType,stimId\n&quot;)&amp;#10;    for it in items:&amp;#10;        f.write(f&quot;{it['file']},{it['type']},{it['id']}\n&quot;)&amp;#10;&amp;#10;with open(mel_list_path, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;    f.write(&quot;stimFile,stimType,stimId\n&quot;)&amp;#10;    for it in mel_items:&amp;#10;        f.write(f&quot;{it['file']},{it['type']},{it['id']}\n&quot;)&amp;#10;&amp;#10;# Make paths available later&amp;#10;expInfo[&quot;trial_list_path&quot;] = trial_list_path&amp;#10;expInfo[&quot;mel_list_path&quot;] = mel_list_path&amp;#10;expInfo[&quot;manifest_path&quot;] = manifest_path" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="acq_code" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
+    <Routine name="PHASE_B__Calibration">
+      <RoutineSettingsComponent name="PHASE_B__Calibration" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="PHASE_B__Calibration" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <CodeComponent name="cal_code" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="# Default volume scalar (0.0 - 1.0). We'll store it and apply later.&amp;#10;hp_volume = 0.3" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="hp_volume = 0.3;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="fs_cal = 48000;&amp;#10;t = (np.arange(Number.parseInt((fs_cal * 0.25))) / fs_cal);&amp;#10;beep = (0.2 * np.sin((((2 * np.pi) * 800) * t))).astype(np.float32);&amp;#10;left_beep = np.column_stack([beep, np.zeros_like(beep)]);&amp;#10;right_beep = np.column_stack([np.zeros_like(beep), beep]);&amp;#10;snd_left = new sound.Sound({&quot;value&quot;: left_beep, &quot;sampleRate&quot;: fs_cal, &quot;stereo&quot;: true});&amp;#10;snd_right = new sound.Sound({&quot;value&quot;: right_beep, &quot;sampleRate&quot;: fs_cal, &quot;stereo&quot;: true});&amp;#10;snd_left.setVolume(hp_volume);&amp;#10;snd_right.setVolume(hp_volume);&amp;#10;cal_stage = 0;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="# Simple stereo orientation test sounds&amp;#10;fs_cal = 48000&amp;#10;t = np.arange(int(fs_cal*0.25))/fs_cal&amp;#10;beep = (0.2*np.sin(2*np.pi*800*t)).astype(np.float32)&amp;#10;&amp;#10;left_beep = np.column_stack([beep, np.zeros_like(beep)])&amp;#10;right_beep = np.column_stack([np.zeros_like(beep), beep])&amp;#10;&amp;#10;snd_left = sound.Sound(value=left_beep, sampleRate=fs_cal, stereo=True)&amp;#10;snd_right = sound.Sound(value=right_beep, sampleRate=fs_cal, stereo=True)&amp;#10;&amp;#10;# apply current volume&amp;#10;snd_left.setVolume(hp_volume)&amp;#10;snd_right.setVolume(hp_volume)&amp;#10;&amp;#10;cal_stage = 0  # 0 = waiting, 1 = played left, 2 = played right" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="keys = cal_kb.getKeys(keyList=['up','down','left','right','space'], waitRelease=False)&amp;#10;for k in keys:&amp;#10;    if k.name == 'up':&amp;#10;        hp_volume = min(1.0, hp_volume + 0.02)&amp;#10;    elif k.name == 'down':&amp;#10;        hp_volume = max(0.0, hp_volume - 0.02)&amp;#10;    elif k.name == 'left':&amp;#10;        snd_left.setVolume(hp_volume)&amp;#10;        snd_left.play()&amp;#10;    elif k.name == 'right':&amp;#10;        snd_right.setVolume(hp_volume)&amp;#10;        snd_right.play()&amp;#10;    elif k.name == 'space':&amp;#10;        continueRoutine = False&amp;#10;&amp;#10;# (Optional) update a Text component like: f&quot;Volume: {hp_volume:.2f}&quot;" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="# store chosen volume&amp;#10;expInfo[&quot;hp_volume&quot;] = hp_volume&amp;#10;thisExp.addData(&quot;hp_volume&quot;, hp_volume)" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="cal_code" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
+    <Routine name="HearingTest">
+      <RoutineSettingsComponent name="HearingTest" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="HearingTest" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <CodeComponent name="hear_code" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="from collections import defaultdict&amp;#10;&amp;#10;# Fixed test freqs (set frequencies per trial, as requested)&amp;#10;test_freqs = [250, 500, 1000, 2000, 4000, 8000]&amp;#10;&amp;#10;# Simple threshold search levels (dB-like steps mapped to linear)&amp;#10;# You can tune these levels. Start easier -&gt; harder&amp;#10;levels = [0.25, 0.18, 0.12, 0.08, 0.05, 0.03, 0.02]  # linear amplitude&amp;#10;# Store results: threshold = lowest level heard (per ear)&amp;#10;audiogram = {&quot;L&quot;: {}, &quot;R&quot;: {}}" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="import {defaultdict} from 'collections';&amp;#10;test_freqs = [250, 500, 1000, 2000, 4000, 8000];&amp;#10;levels = [0.25, 0.18, 0.12, 0.08, 0.05, 0.03, 0.02];&amp;#10;audiogram = {&quot;L&quot;: {}, &quot;R&quot;: {}};&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="# Determine which frequency and ear this iteration is (sequential)&amp;#10;# We run 2 ears x len(test_freqs). If you want multiple repeats, set nReps&gt;1.&amp;#10;trial_index = hearing_loop.thisN  # 0..(2*len(freqs)-1)&amp;#10;ear = &quot;L&quot; if trial_index &lt; len(test_freqs) else &quot;R&quot;&amp;#10;freq = test_freqs[trial_index % len(test_freqs)]&amp;#10;&amp;#10;# Simple descending method: play from loud to soft until &quot;no&quot;&amp;#10;level_index = 0&amp;#10;heard_last = True&amp;#10;threshold_found = False&amp;#10;&amp;#10;# Build current tone&amp;#10;fs_ht = 48000&amp;#10;dur_ht = 0.5&amp;#10;t = np.arange(int(fs_ht*dur_ht))/fs_ht&amp;#10;tone = np.sin(2*np.pi*freq*t).astype(np.float32)&amp;#10;&amp;#10;def make_ear_tone(amp, ear):&amp;#10;    x = (amp * tone).astype(np.float32)&amp;#10;    if ear == &quot;L&quot;:&amp;#10;        return np.column_stack([x, np.zeros_like(x)])&amp;#10;    else:&amp;#10;        return np.column_stack([np.zeros_like(x), x])&amp;#10;&amp;#10;current_amp = levels[level_index]&amp;#10;stim_arr = make_ear_tone(current_amp, ear)&amp;#10;ht_sound = sound.Sound(value=stim_arr, sampleRate=fs_ht, stereo=True)&amp;#10;ht_sound.setVolume(float(expInfo.get(&quot;hp_volume&quot;, 0.3)))  # user calibration volume&amp;#10;played_once = False" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="# Play once at start&amp;#10;if not played_once:&amp;#10;    ht_sound.play()&amp;#10;    played_once = True&amp;#10;&amp;#10;keys = ht_kb.getKeys(keyList=['y','n'], waitRelease=False)&amp;#10;if keys:&amp;#10;    resp = keys[-1].name&amp;#10;&amp;#10;    if resp == 'y':&amp;#10;        # go softer&amp;#10;        if level_index &lt; len(levels) - 1:&amp;#10;            level_index += 1&amp;#10;            current_amp = levels[level_index]&amp;#10;            stim_arr = make_ear_tone(current_amp, ear)&amp;#10;            ht_sound = sound.Sound(value=stim_arr, sampleRate=fs_ht, stereo=True)&amp;#10;            ht_sound.setVolume(float(expInfo.get(&quot;hp_volume&quot;, 0.3)))&amp;#10;            played_once = False&amp;#10;        else:&amp;#10;            # heard even at softest&amp;#10;            audiogram[ear][freq] = levels[-1]&amp;#10;            threshold_found = True&amp;#10;            continueRoutine = False&amp;#10;&amp;#10;    elif resp == 'n':&amp;#10;        # threshold is previous level (if any), else none&amp;#10;        if level_index == 0:&amp;#10;            audiogram[ear][freq] = None  # not heard at max level&amp;#10;        else:&amp;#10;            audiogram[ear][freq] = levels[level_index - 1]&amp;#10;        threshold_found = True&amp;#10;        continueRoutine = False" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="thisExp.addData(&quot;ht_ear&quot;, ear)&amp;#10;thisExp.addData(&quot;ht_freq&quot;, freq)&amp;#10;thisExp.addData(&quot;ht_threshold_amp&quot;, audiogram[ear][freq])" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="hear_code" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+      <KeyboardComponent name="yesno" plugin="None">
+        <Param val="['y','n']" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="yesno" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <TextComponent name="Confirm" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Arial" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="Confirm" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Did you hear it? (Y/N)" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+    </Routine>
+    <Routine name="PHASE_D_Preperation">
+      <RoutineSettingsComponent name="PHASE_D_Preperation" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="PHASE_D_Preperation" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <CodeComponent name="prep_code" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="import json&amp;#10;import numpy as np&amp;#10;import soundfile as sf&amp;#10;import os&amp;#10;&amp;#10;# Load manifest&amp;#10;with open(expInfo[&quot;manifest_path&quot;], &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;    manifest = json.load(f)&amp;#10;&amp;#10;fs = int(manifest[&quot;fs&quot;])&amp;#10;hp_volume = float(expInfo.get(&quot;hp_volume&quot;, 0.3))&amp;#10;&amp;#10;# Convert audiogram thresholds into ear gains.&amp;#10;# Simple rule: if threshold is high (needs louder), boost more.&amp;#10;# If None (not heard at max), boost strongly but cap.&amp;#10;def ear_gain_map(ear_dict):&amp;#10;    gains = {}&amp;#10;    for freq, thr in ear_dict.items():&amp;#10;        if thr is None:&amp;#10;            gains[freq] = 2.5  # big boost cap&amp;#10;        else:&amp;#10;            # normalize relative to easiest level&amp;#10;            # smaller thr means good hearing -&gt; less boost&amp;#10;            gains[freq] = float(np.clip(levels[0] / max(thr, 1e-6), 0.8, 2.5))&amp;#10;    return gains&amp;#10;&amp;#10;gL = ear_gain_map(audiogram[&quot;L&quot;])&amp;#10;gR = ear_gain_map(audiogram[&quot;R&quot;])&amp;#10;&amp;#10;# For a simple first version: use the median gain across tested freqs as a broadband per-ear gain&amp;#10;L_gain = float(np.median(list(gL.values())))&amp;#10;R_gain = float(np.median(list(gR.values())))&amp;#10;&amp;#10;comp_dir = os.path.join(out_dir, &quot;compensated_audio&quot;)&amp;#10;os.makedirs(comp_dir, exist_ok=True)&amp;#10;&amp;#10;def compensate_file(in_path):&amp;#10;    y, fsi = sf.read(in_path, dtype=&quot;float32&quot;, always_2d=True)&amp;#10;    if fsi != fs:&amp;#10;        # If mismatch, you should resample; keeping simple here:&amp;#10;        pass&amp;#10;    y[:, 0] *= L_gain&amp;#10;    y[:, 1] *= R_gain&amp;#10;    # normalize + safe cap&amp;#10;    y = np.clip(y, -1.0, 1.0)&amp;#10;    return y&amp;#10;&amp;#10;# Write compensated trial lists&amp;#10;trial_list_comp = os.path.join(comp_dir, &quot;trial_list_COMP.csv&quot;)&amp;#10;mel_list_comp = os.path.join(comp_dir, &quot;melody_list_COMP.csv&quot;)&amp;#10;&amp;#10;with open(trial_list_comp, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;    f.write(&quot;stimFile,stimType,stimId\n&quot;)&amp;#10;    for it in manifest[&quot;items&quot;]:&amp;#10;        in_path = it[&quot;file&quot;]&amp;#10;        base = os.path.splitext(os.path.basename(in_path))[0]&amp;#10;        out_path = os.path.join(comp_dir, base + &quot;_COMP.wav&quot;)&amp;#10;        y = compensate_file(in_path)&amp;#10;        sf.write(out_path, y, fs, subtype=&quot;PCM_16&quot;)&amp;#10;        f.write(f&quot;{out_path},{it['type']},{it['id']}\n&quot;)&amp;#10;&amp;#10;with open(mel_list_comp, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:&amp;#10;    f.write(&quot;stimFile,stimType,stimId\n&quot;)&amp;#10;    for it in manifest[&quot;melodies&quot;]:&amp;#10;        in_path = it[&quot;file&quot;]&amp;#10;        base = os.path.splitext(os.path.basename(in_path))[0]&amp;#10;        out_path = os.path.join(comp_dir, base + &quot;_COMP.wav&quot;)&amp;#10;        y = compensate_file(in_path)&amp;#10;        sf.write(out_path, y, fs, subtype=&quot;PCM_16&quot;)&amp;#10;        f.write(f&quot;{out_path},{it['type']},{it['id']}\n&quot;)&amp;#10;&amp;#10;# Store paths for trial loops&amp;#10;expInfo[&quot;trial_list_comp&quot;] = trial_list_comp&amp;#10;expInfo[&quot;mel_list_comp&quot;] = mel_list_comp&amp;#10;&amp;#10;# Store gains used&amp;#10;thisExp.addData(&quot;audiogram_L_gain&quot;, L_gain)&amp;#10;thisExp.addData(&quot;audiogram_R_gain&quot;, R_gain)" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="prep_code" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
+    <Routine name="Phase_E_Trial_Phase">
+      <RoutineSettingsComponent name="Phase_E_Trial_Phase" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="Phase_E_Trial_Phase" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <SoundComponent name="SoundComponent" plugin="None">
+        <Param val="" valType="device" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="True" valType="bool" updates="constant" name="hamming"/>
+        <Param val="SoundComponent" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="$stimFile" valType="str" updates="set every repeat" name="sound"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="constant" name="stopWithRoutine"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="1" valType="num" updates="constant" name="volume"/>
+      </SoundComponent>
+      <KeyboardComponent name="yesno2" plugin="None">
+        <Param val="['y','n']" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="yesno2" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <TextComponent name="text_2" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Arial" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="text_2" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="Did you hear the pitch?" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <CodeComponent name="code" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="psychoJS.experiment.addData(&quot;stimType&quot;, stimType);&amp;#10;psychoJS.experiment.addData(&quot;stimId&quot;, stimId);&amp;#10;psychoJS.experiment.addData(&quot;stimFile&quot;, stimFile);&amp;#10;" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="thisExp.addData(&quot;stimType&quot;, stimType)&amp;#10;thisExp.addData(&quot;stimId&quot;, stimId)&amp;#10;thisExp.addData(&quot;stimFile&quot;, stimFile)" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="code" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
+    <Routine name="MelodicTrials">
+      <RoutineSettingsComponent name="MelodicTrials" plugin="None">
+        <Param val="none" valType="str" updates="None" name="backgroundFit"/>
+        <Param val="" valType="str" updates="None" name="backgroundImg"/>
+        <Param val="$[0,0,0]" valType="color" updates="None" name="color"/>
+        <Param val="rgb" valType="str" updates="None" name="colorSpace"/>
+        <Param val="" valType="str" updates="constant" name="desc"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="code" updates="None" name="forceNonSlip"/>
+        <Param val="MelodicTrials" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="constant" name="skipIf"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="False" valType="bool" updates="None" name="useWindowParams"/>
+      </RoutineSettingsComponent>
+      <SoundComponent name="sound_1" plugin="None">
+        <Param val="" valType="device" updates="None" name="deviceLabel"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="True" valType="bool" updates="constant" name="hamming"/>
+        <Param val="sound_1" valType="code" updates="None" name="name"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="$stimFile" valType="str" updates="set every repeat" name="sound"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="constant" name="stopWithRoutine"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="1" valType="num" updates="constant" name="volume"/>
+      </SoundComponent>
+      <TextComponent name="text_3" plugin="None">
+        <Param val="white" valType="color" updates="constant" name="color"/>
+        <Param val="rgb" valType="str" updates="constant" name="colorSpace"/>
+        <Param val="1" valType="num" updates="constant" name="contrast"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="False" valType="code" updates="constant" name="draggable"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="None" valType="str" updates="constant" name="flip"/>
+        <Param val="Arial" valType="str" updates="constant" name="font"/>
+        <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="text_3" valType="code" updates="None" name="name"/>
+        <Param val="" valType="num" updates="constant" name="opacity"/>
+        <Param val="0" valType="num" updates="constant" name="ori"/>
+        <Param val="(0, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="1.0" valType="code" updates="constant" name="stopVal"/>
+        <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
+        <Param val="How many pitches did you hear? (0–6)" valType="str" updates="constant" name="text"/>
+        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="" valType="code" updates="None" name="validator"/>
+        <Param val="" valType="num" updates="constant" name="wrapWidth"/>
+      </TextComponent>
+      <KeyboardComponent name="melodic_resp" plugin="None">
+        <Param val="['0','1','2','3','4','5','6']" valType="list" updates="constant" name="allowedKeys"/>
+        <Param val="" valType="str" updates="constant" name="correctAns"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="True" valType="bool" updates="constant" name="discard previous"/>
+        <Param val="" valType="code" updates="None" name="durationEstim"/>
+        <Param val="True" valType="bool" updates="constant" name="forceEndRoutine"/>
+        <Param val="melodic_resp" valType="code" updates="None" name="name"/>
+        <Param val="press" valType="str" updates="constant" name="registerOn"/>
+        <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
+        <Param val="" valType="code" updates="None" name="startEstim"/>
+        <Param val="time (s)" valType="str" updates="None" name="startType"/>
+        <Param val="0.0" valType="code" updates="None" name="startVal"/>
+        <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
+        <Param val="" valType="code" updates="constant" name="stopVal"/>
+        <Param val="last key" valType="str" updates="constant" name="store"/>
+        <Param val="False" valType="bool" updates="constant" name="storeCorrect"/>
+        <Param val="True" valType="bool" updates="constant" name="syncScreenRefresh"/>
+      </KeyboardComponent>
+      <CodeComponent name="code_2" plugin="None">
+        <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
+        <Param val="Py" valType="str" updates="None" name="Code Type"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="Each JS Frame"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Experiment"/>
+        <Param val="" valType="extendedCode" updates="constant" name="End JS Routine"/>
+        <Param val="thisExp.addData(&quot;melody_id&quot;, stimId)&amp;#10;thisExp.addData(&quot;melody_file&quot;, stimFile)&amp;#10;# Keyboard component already logs the key; convert to int if you want:&amp;#10;# thisExp.addData(&quot;melody_count&quot;, int(mel_kb.keys[0]) if mel_kb.keys else None)" valType="extendedCode" updates="constant" name="End Routine"/>
+        <Param val="False" valType="bool" updates="None" name="disabled"/>
+        <Param val="code_2" valType="code" updates="None" name="name"/>
+      </CodeComponent>
+    </Routine>
+  </Routines>
+  <Flow>
+    <Routine name="PHASE_A_FileAcquisition"/>
+    <Routine name="PHASE_B__Calibration"/>
+    <LoopInitiator loopType="TrialHandler" name="hearing_loop">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="None" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="sequential" valType="str"/>
+      <Param name="nReps" updates="None" val="2*len(test_freqs)" valType="num"/>
+      <Param name="name" updates="None" val="hearing_loop" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="HearingTest"/>
+    <LoopTerminator name="hearing_loop"/>
+    <Routine name="PHASE_D_Preperation"/>
+    <LoopInitiator loopType="TrialHandler" name="trial_loop">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="None" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="1" valType="num"/>
+      <Param name="name" updates="None" val="trial_loop" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="Phase_E_Trial_Phase"/>
+    <LoopTerminator name="trial_loop"/>
+    <LoopInitiator loopType="TrialHandler" name="mel_loop">
+      <Param name="Selected rows" updates="None" val="" valType="str"/>
+      <Param name="conditions" updates="None" val="None" valType="str"/>
+      <Param name="conditionsFile" updates="None" val="" valType="file"/>
+      <Param name="endPoints" updates="None" val="[0, 1]" valType="num"/>
+      <Param name="isTrials" updates="None" val="True" valType="bool"/>
+      <Param name="loopType" updates="None" val="random" valType="str"/>
+      <Param name="nReps" updates="None" val="1" valType="num"/>
+      <Param name="name" updates="None" val="mel_loop" valType="code"/>
+      <Param name="random seed" updates="None" val="" valType="code"/>
+    </LoopInitiator>
+    <Routine name="MelodicTrials"/>
+    <LoopTerminator name="mel_loop"/>
+  </Flow>
+</PsychoPy2experiment>

@@ -1,0 +1,81 @@
+5.4201 	DEBUG 	Fullscreen settings ignored as running in pilot mode.
+5.4207 	INFO 	Loaded monitor calibration from ['2026_01_21 02:15']
+5.6152 	INFO 	Using renderer 'AMD Radeon RX 6950 XT' for graphics
+5.6152 	INFO 	OpenGL version supported by driver is 4..
+5.6399 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=False, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x00000242A96FB5E0>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x00000242A96FB640>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([0, 0, 0]), colorSpace='rgb', depthBits=8, fullscr=False, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x00000242AA64FF40>, multiSample=False, name='window1', numSamples=2, pos=[np.float64(560.0), np.float64(240.0)], screen=0, size=array([800, 600]), stencilBits=0, stereo=False, title='PsychoPy', units='height', useFBO=True, useRetina=False, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+5.6399 	EXP 	window1: backgroundImage = ''
+5.6399 	EXP 	window1: backgroundFit = 'none'
+5.6575 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.6691 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.6807 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.6925 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7042 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7157 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7273 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7391 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7503 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7617 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7734 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7850 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.7966 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8083 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8199 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8315 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8432 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8546 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8660 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8778 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8892 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.8895 	DEBUG 	Uploading Texture Font fontname to graphics card
+5.8903 	DEBUG 	Upload of Texture Font fontname complete
+5.9080 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.9198 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.9315 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+5.9317 	DEBUG 	Uploading Texture Font fontname to graphics card
+5.9323 	DEBUG 	Upload of Texture Font fontname complete
+5.9348 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+5.9348 	EXP 	window1: recordFrameIntervals = False
+6.1030 	EXP 	window1: recordFrameIntervals = True
+6.2852 	EXP 	Screen (0) actual frame rate measured at 60.24Hz
+6.2852 	EXP 	window1: recordFrameIntervals = False
+6.3002 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3118 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3233 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3351 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3468 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3586 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3700 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3817 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.3934 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.4052 	DEBUG 	TextBox2 loaded 1 chars with 0 blanks and 1 valid
+6.4054 	DEBUG 	Uploading Texture Font fontname to graphics card
+6.4060 	DEBUG 	Upload of Texture Font fontname complete
+6.4457 	WARNING 	launchHubServer: If using the iohub mouse or eyetracker devices, fullScr should be True.
+9.0854 	INFO 	keyboard.Keyboard is using iohub backend.
+9.0855 	EXP 	dichotic_pitch_project: status = STARTED
+9.2271 	INFO 	Loaded psychtoolbox audio version 3.0.19.696976569
+9.5972 	WARNING 	No default speaker specified in Preferences / Hardware, using first speaker found: AES (RME Fireface UFX)
+9.5976 	DEBUG 	Found speaker device: AES (RME Fireface UFX) (91.0)
+9.6189 	INFO 	Created stream for speaker device: AES (RME Fireface UFX) (91.0)
+9.6200 	EXP 	dichotic_pitch: sampleRate = 48000
+9.6201 	EXP 	dichotic_pitch: channels = None
+9.6248 	DEBUG 	Converted audio clip from mono to stereo
+9.6270 	EXP 	Sound dichotic_pitch set volume 1.000
+9.6525 	EXP 	Created prog = Progress(__class__=<class 'psychopy.visual.progress.Progress'>, anchor=('left', 'center'), autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace='rgb', contrast=None, depth=-1, draggable=False, fillColor=array([0, 0, 0]), fillColorSpace='rgb', fillRGB=array([0, 0, 0]), interpolate=True, lineColor=array([1., 1., 1.]), lineColorSpace='rgb', lineRGB=array([1, 1, 1]), lineWidth=4.0, name='prog', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.5, 0.5]), units='height', vertices=ndarray(...), win=Window(...), windingRule=None)
+9.6536 	EXP 	Created progBar = ShapeStim(__class__=<class 'psychopy.visual.shape.ShapeStim'>, anchor=('left', 'center'), autoDraw=False, autoLog=True, closeShape=True, color=method-wrapper(...), colorSpace='rgb', contrast=None, depth=-1, draggable=False, fillColor=array([1, 1, 1]), fillColorSpace='rgb', fillRGB=array([1, 1, 1]), interpolate=True, lineColor=array([0., 0., 0.]), lineColorSpace='rgb', lineRGB=array([0, 0, 0]), lineWidth=1.5, name='progBar', opacity=1.0, ori=0.0, pos=array([0., 0.]), size=array([0.5, 0.5]), units='height', vertices=ndarray(...), win=Window(...), windingRule=None)
+0.0146 	EXP 	prog: direction = 'horizontal'
+0.0146 	EXP 	prog: progress = 0
+0.0184 	EXP 	dichotic_pitch: sampleRate = 44100
+0.0475 	INFO 	Resampled audio from 44100Hz to 48000Hz using method 'default'.
+4.9993 	EXP 	Sound dichotic_pitch reached end of file
+5.0146 	EXP 	Playing sound dichotic_pitch on speaker AES (RME Fireface UFX)
+5.0361 	EXP 	prog: autoDraw = True
+6.0205 	EXP 	Sound dichotic_pitch reached end of file
+6.0324 	EXP 	Sound dichotic_pitch reached end of file
+9.2328 	DATA 	Mouse: Left button down, pos=(537,305)
+9.3497 	DATA 	Mouse:  Left button up, pos=(537,305)
+15.0308 	EXP 	prog: autoDraw = False
+15.0322 	EXP 	dichotic_pitch_project: status = STOPPED
+15.0335 	INFO 	saved data to 'D:\\[Fork]\\ULETH-NEUR-3999-B\\PsychoPy Projects\\dichotic_pitch_project\\data\\pilot_dichotic_pitch_project_2026-02-25_05h26.14.953.csv'
+15.0338 	INFO 	saved data to D:\[Fork]\ULETH-NEUR-3999-B\PsychoPy Projects\dichotic_pitch_project\data\pilot_dichotic_pitch_project_2026-02-25_05h26.14.953.psydat
+15.3422 	DEBUG 	Saving data for dichotic_pitch_project ExperimentHandler
