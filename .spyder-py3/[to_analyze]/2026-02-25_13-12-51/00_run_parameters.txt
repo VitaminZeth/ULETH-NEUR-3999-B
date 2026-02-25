@@ -1,0 +1,87 @@
+Run timestamp: 2026-02-25_13-12-51
+Output folder: D:\[Fork]\ULETH-NEUR-3999-B\.spyder-py3\[to_analyze]\2026-02-25_13-12-51
+
+[Signal & Timing]
+fs (Hz): 44100
+note_dur_s (s): 0.35
+notes_per_melody: 8
+total_duration_per_file (s): 2.800
+delay_ms: 0.6
+delay_samples (@fs): 26
+fade_ms: 10.0
+
+[Base]
+base_center_hz: 250.0
+
+[Plotting]
+Plots generated ONCE PER FILE (representative note).
+PLOT_REPRESENTATIVE: median
+If 'median' and 8 notes: representative note = note 4.
+
+[Window Method (matches your original)]
+bandwidth_hz = bandCentre / 20
+bin_width_hz = fs / note_n
+bandwidth_bins = bandwidth_hz / bin_width_hz
+std_bins = bandwidth_bins / 2.355
+window = exp(-0.5 * ((bin-center)/std_bins)^2)
+complementaryWindow = 1 - window
+RIGHT: delayed bandpass (np.roll +delay_samples), advanced notch (np.roll -delay_samples)
+MIX: left = bp1+nt1, right = delayed(bp2)+advanced(nt2)
+
+[Levels]
+bandpass_volume: 1.0
+background_volume: 1.0
+
+[Randomization]
+run_seed (ear assignment + random melody RNG): 2523845294
+assignment_tag: AonL means Melody A on Left; AonR means Melody A on Right
+
+[Notes]
+Mary Had a Little Lamb: first phrase (public domain), padded to 8 notes
+Pop chorus-like: NOT the exact 'Never Gonna Give You Up' melody (copyrighted)
+
+[Rendered files + semitone offsets from base]
+melody_01_01_pentatonic_base250Hz_L8_R8_AonR.wav
+  label: 01_pentatonic
+  base_center_hz: 250.0
+  assignment: AonR
+  Melody A semitones: [0, 2, 4, 7, 9, 7, 4, 2]
+  Melody B semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL L semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL R semitones: [0, 2, 4, 7, 9, 7, 4, 2]
+
+melody_02_02_major_scale_base250Hz_L8_R8_AonR.wav
+  label: 02_major_scale
+  base_center_hz: 250.0
+  assignment: AonR
+  Melody A semitones: [0, 2, 4, 5, 7, 9, 11, 12]
+  Melody B semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL L semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL R semitones: [0, 2, 4, 5, 7, 9, 11, 12]
+
+melody_03_03_random_major_base250Hz_L8_R8_AonL.wav
+  label: 03_random_major
+  base_center_hz: 250.0
+  assignment: AonL
+  Melody A semitones: [0, 4, 4, 7, 9, 12, 11, 11]
+  Melody B semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL L semitones: [0, 4, 4, 7, 9, 12, 11, 11]
+  ACTUAL R semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+
+melody_04_04_mary_lamb_base250Hz_L8_R8_AonL.wav
+  label: 04_mary_lamb
+  base_center_hz: 250.0
+  assignment: AonL
+  Melody A semitones: [4, 2, 0, 2, 4, 4, 4, 2]
+  Melody B semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL L semitones: [4, 2, 0, 2, 4, 4, 4, 2]
+  ACTUAL R semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+
+melody_05_05_pop_chorus_like_base250Hz_L8_R8_AonL.wav
+  label: 05_pop_chorus_like
+  base_center_hz: 250.0
+  assignment: AonL
+  Melody A semitones: [7, 7, 9, 11, 9, 7, 5, 4]
+  Melody B semitones: [0, 0, 0, 0, 0, 0, 0, 0]
+  ACTUAL L semitones: [7, 7, 9, 11, 9, 7, 5, 4]
+  ACTUAL R semitones: [0, 0, 0, 0, 0, 0, 0, 0]

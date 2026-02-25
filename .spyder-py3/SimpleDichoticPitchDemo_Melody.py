@@ -1,43 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Window-Based Dichotic Pitch (Melody Pack @ Base 250 Hz) — ALL-IN-ONE SCRIPT
----------------------------------------------------------------------------
-Generates FIVE stereo WAV files, all anchored to base_center_hz = 250 Hz.
+Window-Based Dichotic Pitch (Melody Pack @ Base 250 Hz) — FAST PLOTS (ONCE PER FILE)
+-----------------------------------------------------------------------------------
+This version keeps your exact window-based dichotic pitch method BUT:
+✅ Generates the *same* plot set (windows full/zoom/log + spectra full/zoom/log)
+✅ Only ONCE PER FILE (instead of per note), using a representative note:
+    - PLOT_REPRESENTATIVE = "note1"   (first note)
+    - PLOT_REPRESENTATIVE = "median"  (median note, for 8 notes -> note 4)
 
-Each file contains:
-- A *target* melody (Melody A) on one ear (Left OR Right) chosen randomly per run per file.
-- A companion line (Melody B) on the other ear (default = simple tonic drone).
-- 8 notes per file.
-- Each NOTE uses your original window-based dichotic-pitch method:
-    noise -> RFFT -> multiply by Gaussian window & (1-window) -> IRFFT
-    right bandpass delayed, right notch advanced
-    mix left = bp1+nt1, right = delayed(bp2)+advanced(nt2)
+Everything else remains:
+- 5 stereo WAV files, all base_center_hz = 250 Hz
+- 8 notes per file
+- Each note uses your window-based method:
+  noise -> RFFT -> Gaussian window + complementary notch -> IRFFT
+  right bandpass delayed, right notch advanced
+  mix left = bp1+nt1, right = delayed(bp2)+advanced(nt2)
+- Melody A is randomly assigned to Left or Right per run per file
+- Console progress bar with mini progress:
+  "File 2/5 | Note 6/8 | Plot 11/14 | ..."
 
 Melody set (5 files):
 1) Pentatonic scale melody (8 notes)
 2) Major scale melody (8 notes)
 3) Random melody (8 notes, constrained to major scale degrees)
 4) Mary Had a Little Lamb (first phrase, padded to 8 notes) — public domain
-5) "Pop-chorus-like" melody (NOT the exact Rick Astley melody)
-   NOTE: I can’t provide the exact "Never Gonna Give You Up" chorus melody because it’s copyrighted.
-         If you want the exact one, paste your own note list or provide a MIDI and I’ll wire it in.
-
-Progress:
-- Console loading bar + per-file mini progress:
-  "File 2/5 | Note 6/8 | Plot 11/14 | ..."
+5) Pop-chorus-like melody (NOT the exact "Never Gonna Give You Up" melody; copyrighted)
 
 Dependencies:
     pip install numpy scipy matplotlib
 Optional:
     pip install sounddevice
-
-Output:
-    [to_analyze]/YYYY-MM-DD_HH-MM-SS/
-        wavs/
-        plots/windows/
-        plots/spectra/
-        00_run_parameters.txt
 """
 
 import sys
@@ -55,6 +48,12 @@ try:
     HAVE_SD = True
 except Exception:
     HAVE_SD = False
+
+
+# =========================
+# CONFIG: plot once per file
+# =========================
+PLOT_REPRESENTATIVE = "median"  # "note1" or "median"
 
 
 # =========================
@@ -101,26 +100,33 @@ class Progress:
 PROG = None
 
 class RunState:
-    def __init__(self, files_total: int, notes_per_file: int = 8, plots_per_note: int = 14):
+    """
+    Tracks:
+      File X/5
+      Note Y/8
+      Plot Z/14  (plots are per-file now; Z increments only when saving the 14 images)
+    """
+    def __init__(self, files_total: int, notes_per_file: int = 8, plots_per_file: int = 14):
         self.files_total = int(files_total)
         self.notes_per_file = int(notes_per_file)
-        self.plots_per_note = int(plots_per_note)
+        self.plots_per_file = int(plots_per_file)
+
         self.file_idx = 0
         self.note_idx = 0
         self.plot_idx = 0
 
     def set_file(self, file_idx_1based: int):
         self.file_idx = int(file_idx_1based)
+        self.plot_idx = 0  # reset plots at file start
 
     def set_note(self, note_idx_1based: int):
         self.note_idx = int(note_idx_1based)
-        self.plot_idx = 0
 
     def bump_plot(self):
-        self.plot_idx = min(self.plot_idx + 1, self.plots_per_note)
+        self.plot_idx = min(self.plot_idx + 1, self.plots_per_file)
 
     def prefix(self) -> str:
-        return f"File {self.file_idx}/{self.files_total} | Note {self.note_idx}/{self.notes_per_file} | Plot {self.plot_idx}/{self.plots_per_note}"
+        return f"File {self.file_idx}/{self.files_total} | Note {self.note_idx}/{self.notes_per_file} | Plot {self.plot_idx}/{self.plots_per_file}"
 
 STATE = None
 
@@ -166,7 +172,7 @@ def gaussian_at_bin(center_bin: int, sigma_bins: float, num_bins: int) -> np.nda
 
 
 # =========================
-# Plotting (full/zoom/log)
+# Plotting (full/zoom/log) — SAME SET, ONCE PER FILE
 # =========================
 def save_window_plots(
     *,
@@ -188,6 +194,10 @@ def save_window_plots(
     w_right_bp = window2 / (np.max(window2) if np.max(window2) > 0 else 1.0)
     w_right_nt = complementaryWindow2 / (np.max(complementaryWindow2) if np.max(complementaryWindow2) > 0 else 1.0)
 
+    def _saved(kind: str):
+        if STATE: STATE.bump_plot()
+        if PROG and STATE: PROG.step(f"{STATE.prefix()} | {kind} saved")
+
     # 02a overview linear
     plt.figure(figsize=(12, 6))
     plt.title("Filter Windows (Aligned) — Both Ears")
@@ -202,8 +212,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02a_windows_overview_linear.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02b overview log-x
     plt.figure(figsize=(12, 6))
@@ -219,8 +228,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02b_windows_overview_log.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02c left linear full
     plt.figure(figsize=(12, 6))
@@ -234,8 +242,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02c_left_windows_linear.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02d left zoom
     plt.figure(figsize=(12, 6))
@@ -249,8 +256,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02d_left_windows_zoom.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02e left log-x
     plt.figure(figsize=(12, 6))
@@ -264,8 +270,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02e_left_windows_log.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02f right linear full
     plt.figure(figsize=(12, 6))
@@ -279,8 +284,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02f_right_windows_linear.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02g right zoom
     plt.figure(figsize=(12, 6))
@@ -294,8 +298,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02g_right_windows_zoom.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
     # 02h right log-x
     plt.figure(figsize=(12, 6))
@@ -309,8 +312,7 @@ def save_window_plots(
     plt.tight_layout()
     plt.savefig(windows_dir / f"{prefix}_02h_right_windows_log.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | windows plot saved")
+    _saved("windows plot")
 
 
 def save_spectra_plots(
@@ -342,6 +344,10 @@ def save_spectra_plots(
     w_right_bp = window2 / (np.max(window2) if np.max(window2) > 0 else 1.0)
     w_right_nt = complementaryWindow2 / (np.max(complementaryWindow2) if np.max(complementaryWindow2) > 0 else 1.0)
 
+    def _saved(kind: str):
+        if STATE: STATE.bump_plot()
+        if PROG and STATE: PROG.step(f"{STATE.prefix()} | {kind} saved")
+
     # 02 filters overview
     plt.figure(figsize=(12, 6))
     plt.title("Filter Windows (Band-pass and Complementary Notch) - Both Ears")
@@ -356,8 +362,7 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_02_filters_overview_left_right.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
     # 03 left full
     plt.figure(figsize=(12, 6))
@@ -372,8 +377,7 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_03_left_spectrum_with_filters.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
     # 03 left zoom
     plt.figure(figsize=(12, 6))
@@ -388,8 +392,7 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_03_left_spectrum_zoom.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
     # 03 left log-x
     plt.figure(figsize=(12, 6))
@@ -404,8 +407,7 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_03_left_spectrum_log.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
     # 04 right full
     plt.figure(figsize=(12, 6))
@@ -420,8 +422,7 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_04_right_spectrum_with_filters.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
     # 04 right zoom
     plt.figure(figsize=(12, 6))
@@ -436,8 +437,7 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_04_right_spectrum_zoom.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
     # 04 right log-x
     plt.figure(figsize=(12, 6))
@@ -452,12 +452,11 @@ def save_spectra_plots(
     plt.tight_layout()
     plt.savefig(spectra_dir / f"{prefix}_04_right_spectrum_log.png", dpi=300)
     plt.close()
-    if STATE: STATE.bump_plot()
-    if PROG: PROG.step(f"{STATE.prefix()} | spectra plot saved")
+    _saved("spectra plot")
 
 
 # =========================
-# One NOTE using exact pipeline + plots
+# One NOTE using exact pipeline (plots optional)
 # =========================
 def make_one_note_window_based(
     *,
@@ -472,7 +471,8 @@ def make_one_note_window_based(
     fade_ms: float,
     windows_dir: Path,
     spectra_dir: Path,
-    plot_prefix: str
+    plot_prefix: str,
+    do_plots: bool
 ) -> np.ndarray:
     if PROG and STATE:
         PROG.info(f"{STATE.prefix()} | generating noise + FFT")
@@ -483,10 +483,7 @@ def make_one_note_window_based(
     freqs = np.fft.rfftfreq(note_n, 1/fs)
     bin_width_hz = fs / note_n
 
-    if PROG and STATE:
-        PROG.info(f"{STATE.prefix()} | building Gaussian windows")
-
-    # EXACT bandwidth rule: center / 20
+    # EXACT bandwidth rule: center/20
     bandwidth1_hz = bandCentre1_hz / 20.0
     bandwidth2_hz = bandCentre2_hz / 20.0
     bandwidth1_bins = bandwidth1_hz / bin_width_hz
@@ -505,21 +502,24 @@ def make_one_note_window_based(
     complementaryWindow1 = 1.0 - window1
     complementaryWindow2 = 1.0 - window2
 
-    # 8 window plots
-    save_window_plots(
-        windows_dir=windows_dir,
-        freqs=freqs,
-        window1=window1,
-        window2=window2,
-        complementaryWindow1=complementaryWindow1,
-        complementaryWindow2=complementaryWindow2,
-        fs=fs,
-        bandCentre1_hz=bandCentre1_hz,
-        bandCentre2_hz=bandCentre2_hz,
-        bandwidth1_hz=bandwidth1_hz,
-        bandwidth2_hz=bandwidth2_hz,
-        prefix=plot_prefix
-    )
+    # Plots ONCE PER FILE (representative note)
+    if do_plots:
+        if PROG and STATE:
+            PROG.info(f"{STATE.prefix()} | saving representative plots")
+        save_window_plots(
+            windows_dir=windows_dir,
+            freqs=freqs,
+            window1=window1,
+            window2=window2,
+            complementaryWindow1=complementaryWindow1,
+            complementaryWindow2=complementaryWindow2,
+            fs=fs,
+            bandCentre1_hz=bandCentre1_hz,
+            bandCentre2_hz=bandCentre2_hz,
+            bandwidth1_hz=bandwidth1_hz,
+            bandwidth2_hz=bandwidth2_hz,
+            prefix=plot_prefix
+        )
 
     if PROG and STATE:
         PROG.info(f"{STATE.prefix()} | filtering + mixing")
@@ -544,26 +544,23 @@ def make_one_note_window_based(
     mixedl = apply_fade(mixedl, fs, fade_ms=fade_ms)
     mixedr = apply_fade(mixedr, fs, fade_ms=fade_ms)
 
-    if PROG and STATE:
-        PROG.info(f"{STATE.prefix()} | spectra + plots")
-
-    # 6 spectra plots
-    save_spectra_plots(
-        spectra_dir=spectra_dir,
-        freqs=freqs,
-        mixedl=mixedl,
-        mixedr=mixedr,
-        window1=window1,
-        window2=window2,
-        complementaryWindow1=complementaryWindow1,
-        complementaryWindow2=complementaryWindow2,
-        fs=fs,
-        bandCentre1_hz=bandCentre1_hz,
-        bandCentre2_hz=bandCentre2_hz,
-        bandwidth1_hz=bandwidth1_hz,
-        bandwidth2_hz=bandwidth2_hz,
-        prefix=plot_prefix
-    )
+    if do_plots:
+        save_spectra_plots(
+            spectra_dir=spectra_dir,
+            freqs=freqs,
+            mixedl=mixedl,
+            mixedr=mixedr,
+            window1=window1,
+            window2=window2,
+            complementaryWindow1=complementaryWindow1,
+            complementaryWindow2=complementaryWindow2,
+            fs=fs,
+            bandCentre1_hz=bandCentre1_hz,
+            bandCentre2_hz=bandCentre2_hz,
+            bandwidth1_hz=bandwidth1_hz,
+            bandwidth2_hz=bandwidth2_hz,
+            prefix=plot_prefix
+        )
 
     return np.column_stack((mixedl, mixedr))
 
@@ -571,6 +568,13 @@ def make_one_note_window_based(
 # =========================
 # Render one file: 8 notes
 # =========================
+def representative_note_index(n_notes: int) -> int:
+    """0-based index for representative note."""
+    if PLOT_REPRESENTATIVE.lower() == "note1":
+        return 0
+    # median: for even N=8 -> choose lower median -> 4th note => index 3
+    return (n_notes - 1) // 2  # 8 -> 3
+
 def render_one_file_two_melodies(
     *,
     fs: int,
@@ -589,21 +593,26 @@ def render_one_file_two_melodies(
 ) -> np.ndarray:
     assert len(melody_L_semitones) == 8 and len(melody_R_semitones) == 8
 
+    n_notes = 8
+    rep_idx = representative_note_index(n_notes)
+
     note_n = int(round(fs * note_dur_s))
     delay_samples = int(round((delay_ms / 1000.0) * fs))
     rng = np.random.default_rng(int(rng_seed))
 
     notes = []
-    for i in range(8):
+    for i in range(n_notes):
         if STATE:
             STATE.set_note(i + 1)
         if PROG and STATE:
-            PROG.info(f"{STATE.prefix()} | starting note")
+            PROG.info(f"{STATE.prefix()} | generating note")
 
         bc1 = float(np.clip(semitones_to_hz(base_center_hz, melody_L_semitones[i]), 20.0, fs / 2.0))
         bc2 = float(np.clip(semitones_to_hz(base_center_hz, melody_R_semitones[i]), 20.0, fs / 2.0))
 
-        plot_prefix = f"{file_tag}_note{i+1:02d}_L{int(round(bc1))}Hz_R{int(round(bc2))}Hz"
+        do_plots = (i == rep_idx)
+        # plots are per file, so prefix includes which note we used
+        plot_prefix = f"{file_tag}_REPnote{i+1:02d}_L{int(round(bc1))}Hz_R{int(round(bc2))}Hz" if do_plots else "unused"
 
         note_stereo = make_one_note_window_based(
             fs=fs,
@@ -617,12 +626,12 @@ def render_one_file_two_melodies(
             fade_ms=fade_ms,
             windows_dir=windows_dir,
             spectra_dir=spectra_dir,
-            plot_prefix=plot_prefix
+            plot_prefix=plot_prefix,
+            do_plots=do_plots
         )
 
         notes.append(note_stereo)
 
-        # One extra step per note completion (in addition to the 14 plot steps)
         if PROG and STATE:
             PROG.step(f"{STATE.prefix()} | note complete")
 
@@ -640,23 +649,18 @@ MAJOR_SCALE_8 = [0, 2, 4, 5, 7, 9, 11, 12]
 PENTA_MELODY_8 = [0, 2, 4, 7, 9, 7, 4, 2]
 
 # Mary Had a Little Lamb (first phrase), in C major: E D C D E E E (pad with D)
-# semitone offsets relative to tonic: E=4, D=2, C=0
 MARY_FIRST_PHRASE_8 = [4, 2, 0, 2, 4, 4, 4, 2]
 
 def random_major_melody_8(rng: np.random.Generator) -> list[int]:
-    """8-note melody constrained to major scale degrees within 1 octave."""
     degrees = [0, 2, 4, 5, 7, 9, 11, 12]
-    # slightly bias toward stepwise motion by picking from neighbors
     out = [0]
     for _ in range(7):
         prev = out[-1]
-        # candidate degrees close to prev
         close = sorted(degrees, key=lambda d: abs(d - prev))[:4]
         out.append(int(rng.choice(close)))
     return out
 
-# NOTE: Not the copyrighted "Never Gonna Give You Up" melody.
-# This is just a generic pop-chorus-like contour, major-ish, 8 notes.
+# NOT the copyrighted Rick Astley melody (generic pop-like contour)
 POP_CHORUS_LIKE_8 = [7, 7, 9, 11, 9, 7, 5, 4]
 
 def tonic_drone_8() -> list[int]:
@@ -669,7 +673,6 @@ def tonic_drone_8() -> list[int]:
 def main():
     global PROG, STATE
 
-    # ---- Core parameters ----
     fs = 44100
     note_dur_s = 0.35
     delay_ms = 0.6
@@ -677,22 +680,21 @@ def main():
     bandpass_volume = 1.0
     background_volume = 1.0
 
-    # Base frequency ALWAYS 250 Hz now
+    # Base always 250 Hz
     base_center_hz = 250.0
 
     # 5 files = 5 melody types
     melody_specs = [
         ("01_pentatonic", PENTA_MELODY_8),
         ("02_major_scale", MAJOR_SCALE_8),
-        ("03_random_major", None),          # generated at runtime
+        ("03_random_major", None),
         ("04_mary_lamb", MARY_FIRST_PHRASE_8),
         ("05_pop_chorus_like", POP_CHORUS_LIKE_8),
     ]
 
-    # Companion line (Melody B): tonic drone (so the target melody is obvious)
     melody_B = tonic_drone_8()
 
-    # ---- Output folders ----
+    # Output folders
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     base_outdir = Path(__file__).resolve().parent / "[to_analyze]"
     outdir = base_outdir / timestamp
@@ -703,39 +705,38 @@ def main():
     for d in (wavs_dir, windows_dir, spectra_dir):
         d.mkdir(parents=True, exist_ok=True)
 
-    # ---- Progress setup ----
     FILES_TOTAL = len(melody_specs)
     NOTES_PER_FILE = 8
-    PLOTS_PER_NOTE = 14  # 8 window plots + 6 spectra plots
+    PLOTS_PER_FILE = 14  # plots happen once per file now
 
-    STATE = RunState(files_total=FILES_TOTAL, notes_per_file=NOTES_PER_FILE, plots_per_note=PLOTS_PER_NOTE)
-    total_steps = (FILES_TOTAL * NOTES_PER_FILE * PLOTS_PER_NOTE) + (FILES_TOTAL * NOTES_PER_FILE) + FILES_TOTAL + 12
-    PROG = Progress(total_steps, title="Generating window-based dichotic pitch melody pack...", width=40)
+    STATE = RunState(files_total=FILES_TOTAL, notes_per_file=NOTES_PER_FILE, plots_per_file=PLOTS_PER_FILE)
+
+    # Total steps: plots (files*14) + note completes (files*8) + wav saves (files) + some slack
+    total_steps = (FILES_TOTAL * PLOTS_PER_FILE) + (FILES_TOTAL * NOTES_PER_FILE) + FILES_TOTAL + 12
+    PROG = Progress(total_steps, title="Generating window-based dichotic pitch melody pack (fast plots)...", width=40)
     PROG.step("Output folders created")
 
     print(f"\nOutput:\n  WAVs:  {wavs_dir}\n  Plots: {plots_dir}\n")
+    print(f"Plot mode: ONCE PER FILE using representative '{PLOT_REPRESENTATIVE}' note.\n")
 
-    # ---- Randomization seed (ear assignment + random melody) ----
+    # Randomization seed
     run_seed = int(datetime.now().timestamp() * 1000) % (2**32)
     run_rng = np.random.default_rng(run_seed)
     PROG.step("Randomization seeded")
 
     rendered_log = []
 
-    # ---- Render 5 files ----
     for idx, (label, melody_A_template) in enumerate(melody_specs, start=1):
         STATE.set_file(idx)
         if PROG and STATE:
             PROG.info(f"{STATE.prefix()} | starting file {label}")
 
-        # Melody A = the requested melody for this file
         if melody_A_template is None:
-            # Random melody constrained to major scale degrees
             melody_A = random_major_melody_8(run_rng)
         else:
             melody_A = list(melody_A_template)
 
-        # Randomly decide if Melody A appears on LEFT or RIGHT (per file, each run)
+        # Random ear assignment for Melody A (per file per run)
         A_on_left = bool(run_rng.integers(0, 2))
         if A_on_left:
             melody_L = melody_A
@@ -782,7 +783,7 @@ def main():
             "melody_R_actual": melody_R
         })
 
-    # ---- Write parameter snapshot ----
+    # Write parameter snapshot
     delay_samples = int(round((delay_ms / 1000.0) * fs))
     params_lines = [
         f"Run timestamp: {timestamp}",
@@ -799,6 +800,11 @@ def main():
         "",
         "[Base]",
         f"base_center_hz: {base_center_hz}",
+        "",
+        "[Plotting]",
+        "Plots generated ONCE PER FILE (representative note).",
+        f"PLOT_REPRESENTATIVE: {PLOT_REPRESENTATIVE}",
+        "If 'median' and 8 notes: representative note = note 4.",
         "",
         "[Window Method (matches your original)]",
         "bandwidth_hz = bandCentre / 20",
@@ -818,7 +824,7 @@ def main():
         f"run_seed (ear assignment + random melody RNG): {run_seed}",
         "assignment_tag: AonL means Melody A on Left; AonR means Melody A on Right",
         "",
-        "[Melody Notes]",
+        "[Notes]",
         "Mary Had a Little Lamb: first phrase (public domain), padded to 8 notes",
         "Pop chorus-like: NOT the exact 'Never Gonna Give You Up' melody (copyrighted)",
         "",
@@ -840,10 +846,11 @@ def main():
     (outdir / "00_run_parameters.txt").write_text("\n".join(params_lines), encoding="utf-8")
     PROG.step("Wrote 00_run_parameters.txt")
 
-    # Optional: play ~3 seconds of the first file
+    # Optional playback (first file, ~3 seconds)
     if HAVE_SD:
         PROG.info("Optional playback: ~3 seconds of first stimulus...")
         first = rendered_log[0]
+        # quick regenerate without plots
         rng = np.random.default_rng(1001)
         note_n = int(round(fs * note_dur_s))
         delay_samples = int(round((delay_ms / 1000.0) * fs))
