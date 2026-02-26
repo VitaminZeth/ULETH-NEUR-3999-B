@@ -1,0 +1,3 @@
+stimFile,stimType,stimId,centerFreqHz,fftCsvPath
+D:\Fork\ULETH-NEUR-3999-B\PsychoPy Projects\DichoticPitch_PsychoPy_Project_AllInOne\OUTPUT\RUN_20260225_172023\PHASEA_FileAcquisition\WAV\20260225_172023_melody_1.wav,melody,melody_1,None,D:\Fork\ULETH-NEUR-3999-B\PsychoPy Projects\DichoticPitch_PsychoPy_Project_AllInOne\OUTPUT\RUN_20260225_172023\PHASEA_FileAcquisition\FFT_CSV\20260225_172023_melody_1_FFT.csv
+D:\Fork\ULETH-NEUR-3999-B\PsychoPy Projects\DichoticPitch_PsychoPy_Project_AllInOne\OUTPUT\RUN_20260225_172023\PHASEA_FileAcquisition\WAV\20260225_172023_melody_2.wav,melody,melody_2,None,D:\Fork\ULETH-NEUR-3999-B\PsychoPy Projects\DichoticPitch_PsychoPy_Project_AllInOne\OUTPUT\RUN_20260225_172023\PHASEA_FileAcquisition\FFT_CSV\20260225_172023_melody_2_FFT.csv

@@ -1,0 +1,13 @@
+ear,freq_hz,threshold_amp,skipped,reason
+L,250,0.02,False,
+L,500,0.02,False,
+L,1000,0.02,False,
+L,2000,0.02,False,
+L,4000,0.02,False,
+L,8000,0.02,False,
+R,250,0.02,False,
+R,500,0.02,False,
+R,1000,0.02,False,
+R,2000,0.02,False,
+R,4000,0.02,False,
+R,8000,0.02,False,

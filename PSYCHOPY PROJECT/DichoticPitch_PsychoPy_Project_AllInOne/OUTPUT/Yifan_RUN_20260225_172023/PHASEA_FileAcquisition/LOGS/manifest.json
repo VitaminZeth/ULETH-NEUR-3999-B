@@ -1,0 +1,172 @@
+{
+  "run_id": "20260225_172023",
+  "fs": 48000,
+  "items": [
+    {
+      "run_id": "20260225_172023",
+      "stimId": "sham_1",
+      "stimType": "sham",
+      "centerFreqHz": 315.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_sham_1.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_sham_1_FFT.csv",
+      "params": {
+        "id": "sham_1",
+        "dur": 0.75,
+        "carrier_hz": 315.0,
+        "phase_offset_rad": 0.0,
+        "is_sham": true
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "sham_2",
+      "stimType": "sham",
+      "centerFreqHz": 250.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_sham_2.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_sham_2_FFT.csv",
+      "params": {
+        "id": "sham_2",
+        "dur": 0.75,
+        "carrier_hz": 250.0,
+        "phase_offset_rad": 0.0,
+        "is_sham": true
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "sham_3",
+      "stimType": "sham",
+      "centerFreqHz": 200.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_sham_3.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_sham_3_FFT.csv",
+      "params": {
+        "id": "sham_3",
+        "dur": 0.75,
+        "carrier_hz": 200.0,
+        "phase_offset_rad": 0.0,
+        "is_sham": true
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "stim_1",
+      "stimType": "stim",
+      "centerFreqHz": 200.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_stim_1.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_stim_1_FFT.csv",
+      "params": {
+        "id": "stim_1",
+        "dur": 0.75,
+        "carrier_hz": 200.0,
+        "phase_offset_rad": -1.1075377336676526,
+        "is_sham": false
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "stim_2",
+      "stimType": "stim",
+      "centerFreqHz": 500.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_stim_2.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_stim_2_FFT.csv",
+      "params": {
+        "id": "stim_2",
+        "dur": 0.75,
+        "carrier_hz": 500.0,
+        "phase_offset_rad": -1.0316059355224665,
+        "is_sham": false
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "stim_3",
+      "stimType": "stim",
+      "centerFreqHz": 400.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_stim_3.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_stim_3_FFT.csv",
+      "params": {
+        "id": "stim_3",
+        "dur": 0.75,
+        "carrier_hz": 400.0,
+        "phase_offset_rad": 0.6526789759056295,
+        "is_sham": false
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "stim_4",
+      "stimType": "stim",
+      "centerFreqHz": 500.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_stim_4.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_stim_4_FFT.csv",
+      "params": {
+        "id": "stim_4",
+        "dur": 0.75,
+        "carrier_hz": 500.0,
+        "phase_offset_rad": 2.2652893700368226,
+        "is_sham": false
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "stim_5",
+      "stimType": "stim",
+      "centerFreqHz": 630.0,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_stim_5.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_stim_5_FFT.csv",
+      "params": {
+        "id": "stim_5",
+        "dur": 0.75,
+        "carrier_hz": 630.0,
+        "phase_offset_rad": -1.607249119169233,
+        "is_sham": false
+      }
+    }
+  ],
+  "melodies": [
+    {
+      "run_id": "20260225_172023",
+      "stimId": "melody_1",
+      "stimType": "melody",
+      "centerFreqHz": null,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_melody_1.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_melody_1_FFT.csv",
+      "params": {
+        "id": "melody_1",
+        "pitch_seq_hz": [
+          311.0,
+          392.0,
+          349.0,
+          277.0,
+          220.0,
+          311.0
+        ],
+        "note_dur": 0.35,
+        "gap": 0.05,
+        "phase_offset_rad": -2.7876107653195166
+      }
+    },
+    {
+      "run_id": "20260225_172023",
+      "stimId": "melody_2",
+      "stimType": "melody",
+      "centerFreqHz": null,
+      "wavPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\WAV\\20260225_172023_melody_2.wav",
+      "fftCsvPath": "D:\\Fork\\ULETH-NEUR-3999-B\\PsychoPy Projects\\DichoticPitch_PsychoPy_Project_AllInOne\\OUTPUT\\RUN_20260225_172023\\PHASEA_FileAcquisition\\FFT_CSV\\20260225_172023_melody_2_FFT.csv",
+      "params": {
+        "id": "melody_2",
+        "pitch_seq_hz": [
+          311.0,
+          349.0,
+          392.0,
+          311.0,
+          277.0,
+          247.0
+        ],
+        "note_dur": 0.35,
+        "gap": 0.05,
+        "phase_offset_rad": 3.033774600523545
+      }
+    }
+  ]
+}
